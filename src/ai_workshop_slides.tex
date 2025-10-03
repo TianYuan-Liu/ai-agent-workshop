@@ -79,6 +79,68 @@
   \tableofcontents[hideallsubsections]
 \end{frame}
 
+% Workshop Structure Overview
+\begin{frame}{Workshop Structure}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \centering
+      \large\bfseries
+      \textcolor{conesaTeal}{What We'll Cover}
+
+      \vspace{0.5cm}
+      \normalsize
+
+      \begin{enumerate}
+        \item \textbf{AI Agents Fundamentals}\\
+        \small ReAct, MCP, Tools
+        
+        \vspace{0.3cm}
+        
+        \item \textbf{Context Engineering}\\
+        \small Guiding AI effectively
+        
+        \vspace{0.3cm}
+        
+        \item \textbf{Responsible AI}\\
+        \small Best practices \& quality
+        
+        \vspace{0.3cm}
+        
+        \item \textbf{Future Directions}\\
+        \small What's next
+      \end{enumerate}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \centering
+      \large\bfseries
+      \textcolor{conesaOrange}{Live Demos}
+
+      \vspace{0.5cm}
+      \normalsize
+
+      \begin{itemize}
+        \item \textbf{Demo 1}: Research slides\\
+        \small LaTeX generation from papers
+        
+        \vspace{0.3cm}
+        
+        \item \textbf{Demo 2}: CV generation\\
+        \small Context engineering in action
+        
+        \vspace{0.3cm}
+        
+        \item \textbf{Demo 3}: React website\\
+        \small Unit testing \& CI/CD
+      \end{itemize}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.5cm}
+  \centering
+  \normalsize
+  \textbf{Hands-on + Theory} for practical AI-assisted research
+\end{frame}
+
 % Section: Introduction to AI-Assisted Development
 \section{Introduction to AI-Assisted Development}
 
@@ -533,6 +595,46 @@ print(f"Temperature: {temp}C")
   \end{columns}
 \end{frame}
 
+% Section: Context Engineering
+\section{Context Engineering}
+
+\begin{frame}{What Is Context Engineering?}
+  \begin{block}{Key Insight \cite{lutke2024context}}
+    ``Most agent failures are context failures, not model failures.'' --- Tobi Lütke, Shopify
+  \end{block}
+
+  \vspace{0.5cm}
+
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \centering
+      \large\bfseries
+      Core Components
+
+      \vspace{0.3cm}
+      \normalsize
+      Instructions\\
+      Project Context\\
+      Domain Knowledge\\
+      Examples
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \centering
+      \large\bfseries
+      Context = Better AI
+
+      \vspace{0.3cm}
+      \normalsize
+      Specificity beats vagueness\\
+      Examples beat explanations\\
+      Constraints beat preferences
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% Section: Responsible AI & Production Best Practices
+\section{Responsible AI \& Production Best Practices}
+
 \begin{frame}{What Is Vibe Coding?}
   \begin{block}{Definition \cite{karpathy2025vibe}}
     ``A new coding style where you embrace exponentials and forget the code even exists.'' --- Andrej Karpathy
@@ -693,43 +795,6 @@ print(f"Temperature: {temp}C")
   \end{enumerate}
 \end{frame}
 
-% Section: Context Engineering
-\section{Context Engineering}
-
-\begin{frame}{What Is Context Engineering?}
-  \begin{block}{Key Insight \cite{lutke2024context}}
-    ``Most agent failures are context failures, not model failures.'' --- Tobi Lütke, Shopify
-  \end{block}
-
-  \vspace{0.5cm}
-
-  \begin{columns}[T]
-    \begin{column}{0.48\textwidth}
-      \centering
-      \large\bfseries
-      Core Components
-
-      \vspace{0.3cm}
-      \normalsize
-      Instructions\\
-      Project Context\\
-      Domain Knowledge\\
-      Examples
-    \end{column}
-    \begin{column}{0.48\textwidth}
-      \centering
-      \large\bfseries
-      Context = Better AI
-
-      \vspace{0.3cm}
-      \normalsize
-      Specificity beats vagueness\\
-      Examples beat explanations\\
-      Constraints beat preferences
-    \end{column}
-  \end{columns}
-\end{frame}
-
 \begin{frame}[fragile]{Guiding AI for Multi-Omics Analysis}
   \begin{block}{Simple Strategy}
     Tell AI your \textbf{data type} + \textbf{quality rules} + \textbf{ask for a plan}
@@ -844,9 +909,6 @@ GEMINI.md
   \normalsize
   \textbf{Remember:} Examples $>$ Explanations
 \end{frame}
-
-% Section: Demo Highlights
-\section{Demo Highlights}
 
 \begin{frame}{Demo 2: Context Engineering for LaTeX CV Generation}
   \begin{block}{The Workflow}
