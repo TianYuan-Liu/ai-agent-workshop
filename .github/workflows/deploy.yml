@@ -41,9 +41,7 @@ jobs:
         run: npm test
 
       - name: Build production bundle
-        run: npm run build
-        # For GitHub Pages, set base to repo name if not using custom domain
-        # VITE_BASE_URL: /${{ github.event.repository.name }}/
+        run: npm run build -- --base=/ai-agent-workshop/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
