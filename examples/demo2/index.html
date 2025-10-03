@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaTeX CV Prompt Generator - Demo 2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #009988 0%, #00796b 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            color: #009988;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #009988;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #009988;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .dynamic-section {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .dynamic-item {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            border: 1px solid #e0e0e0;
+            position: relative;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #009988;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #00796b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 153, 136, 0.3);
+        }
+
+        .btn-secondary {
+            background: #ff9966;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #ff8552;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+            font-size: 12px;
+            padding: 6px 12px;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .btn-add {
+            background: #3498db;
+            color: white;
+            margin-top: 10px;
+        }
+
+        .btn-add:hover {
+            background: #2980b9;
+        }
+
+        .remove-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .output-section {
+            margin-top: 40px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .prompt-output {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-height: 500px;
+            overflow-y: auto;
+            margin: 15px 0;
+            line-height: 1.5;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .info-box p {
+            margin: 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+        }
+
+        .success-message {
+            background: #4caf50;
+            color: white;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>LaTeX CV Prompt Generator</h1>
+            <p>Demo 2: Context Engineering for Academic CV Creation</p>
+        </div>
+
+        <div class="content">
+            <div class="info-box">
+                <p><strong>How it works:</strong> Fill in your academic information below, and this tool will generate a structured prompt that you can use directly with AI agents (like Claude Code) to create a beautiful LaTeX academic CV.</p>
+            </div>
+
+            <form id="cvForm">
+                <!-- Personal Information -->
+                <div class="section">
+                    <h2 class="section-title">Personal Information</h2>
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" id="fullName" placeholder="Dr. Jane Smith" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="email" placeholder="jane.smith@university.edu">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel" id="phone" placeholder="+1 (555) 123-4567">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Website/Portfolio</label>
+                            <input type="url" id="website" placeholder="https://janesmith.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Location</label>
+                            <input type="text" id="location" placeholder="Boston, MA, USA">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Current Position -->
+                <div class="section">
+                    <h2 class="section-title">Current Position</h2>
+                    <div class="form-group">
+                        <label>Position Title</label>
+                        <input type="text" id="position" placeholder="Assistant Professor">
+                    </div>
+                    <div class="form-group">
+                        <label>Institution/Affiliation</label>
+                        <input type="text" id="institution" placeholder="Department of Biology, Harvard University">
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="section">
+                    <h2 class="section-title">Education</h2>
+                    <div id="educationContainer" class="dynamic-section"></div>
+                    <button type="button" class="btn btn-add" onclick="addEducation()">+ Add Education</button>
+                </div>
+
+                <!-- Research Interests -->
+                <div class="section">
+                    <h2 class="section-title">Research Interests</h2>
+                    <div class="form-group">
+                        <label>Research Areas (one per line)</label>
+                        <textarea id="researchInterests" rows="4" placeholder="Computational Biology&#10;Machine Learning in Genomics&#10;Single-cell RNA Sequencing"></textarea>
+                    </div>
+                </div>
+
+                <!-- Publications -->
+                <div class="section">
+                    <h2 class="section-title">Publications</h2>
+                    <div id="publicationsContainer" class="dynamic-section"></div>
+                    <button type="button" class="btn btn-add" onclick="addPublication()">+ Add Publication</button>
+                </div>
+
+                <!-- Work Experience -->
+                <div class="section">
+                    <h2 class="section-title">Work Experience</h2>
+                    <div id="experienceContainer" class="dynamic-section"></div>
+                    <button type="button" class="btn btn-add" onclick="addExperience()">+ Add Experience</button>
+                </div>
+
+                <!-- Awards & Honors -->
+                <div class="section">
+                    <h2 class="section-title">Awards & Honors</h2>
+                    <div class="form-group">
+                        <label>Awards (one per line)</label>
+                        <textarea id="awards" rows="4" placeholder="NSF CAREER Award, 2023&#10;Best Paper Award, ICML 2022&#10;Outstanding Graduate Student Award, 2019"></textarea>
+                    </div>
+                </div>
+
+                <!-- Skills -->
+                <div class="section">
+                    <h2 class="section-title">Skills & Expertise</h2>
+                    <div class="form-group">
+                        <label>Technical Skills</label>
+                        <textarea id="skills" rows="4" placeholder="Programming: Python, R, MATLAB&#10;Tools: TensorFlow, PyTorch, Git&#10;Languages: English (native), Spanish (fluent)"></textarea>
+                    </div>
+                </div>
+
+                <!-- Template Preferences -->
+                <div class="section">
+                    <h2 class="section-title">CV Template Preferences</h2>
+                    <div class="form-group">
+                        <label>Preferred LaTeX CV Template</label>
+                        <input type="text" id="template" placeholder="moderncv, academic-cv, altacv, etc." value="moderncv">
+                    </div>
+                    <div class="form-group">
+                        <label>Additional Instructions (optional)</label>
+                        <textarea id="additionalInstructions" rows="3" placeholder="e.g., Use a two-column layout, emphasize recent publications, include a photo"></textarea>
+                    </div>
+                </div>
+
+                <!-- Generate Button -->
+                <div style="text-align: center; margin-top: 30px;">
+                    <button type="button" class="btn btn-primary" onclick="generatePrompt()" style="font-size: 16px; padding: 14px 40px;">
+                        Generate Prompt
+                    </button>
+                </div>
+            </form>
+
+            <!-- Output Section -->
+            <div id="outputSection" class="output-section" style="display: none;">
+                <h2 class="section-title">Generated Prompt</h2>
+                <p>Copy this prompt and use it with Claude Code or another AI agent to generate your LaTeX CV:</p>
+                <div id="promptOutput" class="prompt-output"></div>
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="copyPrompt()">Copy to Clipboard</button>
+                    <button class="btn btn-secondary" onclick="downloadPrompt()">Download as .txt</button>
+                </div>
+                <div id="successMessage" class="success-message">Copied to clipboard!</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize with one entry for each dynamic section
+        window.onload = function() {
+            addEducation();
+            addPublication();
+            addExperience();
+        };
+
+        let educationCount = 0;
+        let publicationCount = 0;
+        let experienceCount = 0;
+
+        function addEducation() {
+            educationCount++;
+            const container = document.getElementById('educationContainer');
+            const div = document.createElement('div');
+            div.className = 'dynamic-item';
+            div.id = `education-${educationCount}`;
+            div.innerHTML = `
+                <button type="button" class="btn btn-danger remove-btn" onclick="removeElement('education-${educationCount}')">Remove</button>
+                <div class="form-group">
+                    <label>Degree</label>
+                    <input type="text" placeholder="Ph.D. in Computer Science" data-type="education-degree">
+                </div>
+                <div class="form-group">
+                    <label>Institution</label>
+                    <input type="text" placeholder="Massachusetts Institute of Technology" data-type="education-institution">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Year</label>
+                        <input type="text" placeholder="2019" data-type="education-year">
+                    </div>
+                    <div class="form-group">
+                        <label>Advisor (optional)</label>
+                        <input type="text" placeholder="Prof. John Doe" data-type="education-advisor">
+                    </div>
+                </div>
+            `;
+            container.appendChild(div);
+        }
+
+        function addPublication() {
+            publicationCount++;
+            const container = document.getElementById('publicationsContainer');
+            const div = document.createElement('div');
+            div.className = 'dynamic-item';
+            div.id = `publication-${publicationCount}`;
+            div.innerHTML = `
+                <button type="button" class="btn btn-danger remove-btn" onclick="removeElement('publication-${publicationCount}')">Remove</button>
+                <div class="form-group">
+                    <label>Full Citation</label>
+                    <textarea rows="3" placeholder="Smith, J., Doe, A., & Lee, B. (2023). Deep learning approaches for genomic analysis. Nature Methods, 20(5), 456-467." data-type="publication"></textarea>
+                </div>
+            `;
+            container.appendChild(div);
+        }
+
+        function addExperience() {
+            experienceCount++;
+            const container = document.getElementById('experienceContainer');
+            const div = document.createElement('div');
+            div.className = 'dynamic-item';
+            div.id = `experience-${experienceCount}`;
+            div.innerHTML = `
+                <button type="button" class="btn btn-danger remove-btn" onclick="removeElement('experience-${experienceCount}')">Remove</button>
+                <div class="form-group">
+                    <label>Position Title</label>
+                    <input type="text" placeholder="Postdoctoral Research Fellow" data-type="experience-position">
+                </div>
+                <div class="form-group">
+                    <label>Organization</label>
+                    <input type="text" placeholder="Stanford University" data-type="experience-org">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Start Date</label>
+                        <input type="text" placeholder="2019" data-type="experience-start">
+                    </div>
+                    <div class="form-group">
+                        <label>End Date</label>
+                        <input type="text" placeholder="2021 or Present" data-type="experience-end">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Description (optional)</label>
+                    <textarea rows="2" placeholder="Key responsibilities and achievements" data-type="experience-desc"></textarea>
+                </div>
+            `;
+            container.appendChild(div);
+        }
+
+        function removeElement(id) {
+            document.getElementById(id).remove();
+        }
+
+        function collectEducation() {
+            const items = document.querySelectorAll('[data-type="education-degree"]');
+            const education = [];
+            items.forEach((degreeInput, index) => {
+                const parent = degreeInput.closest('.dynamic-item');
+                const degree = degreeInput.value.trim();
+                const institution = parent.querySelector('[data-type="education-institution"]').value.trim();
+                const year = parent.querySelector('[data-type="education-year"]').value.trim();
+                const advisor = parent.querySelector('[data-type="education-advisor"]').value.trim();
+
+                if (degree || institution) {
+                    let entry = `${degree}, ${institution}`;
+                    if (year) entry += `, ${year}`;
+                    if (advisor) entry += ` (Advisor: ${advisor})`;
+                    education.push(entry);
+                }
+            });
+            return education;
+        }
+
+        function collectPublications() {
+            const items = document.querySelectorAll('[data-type="publication"]');
+            const publications = [];
+            items.forEach(item => {
+                const value = item.value.trim();
+                if (value) publications.push(value);
+            });
+            return publications;
+        }
+
+        function collectExperience() {
+            const items = document.querySelectorAll('[data-type="experience-position"]');
+            const experience = [];
+            items.forEach((positionInput) => {
+                const parent = positionInput.closest('.dynamic-item');
+                const position = positionInput.value.trim();
+                const org = parent.querySelector('[data-type="experience-org"]').value.trim();
+                const start = parent.querySelector('[data-type="experience-start"]').value.trim();
+                const end = parent.querySelector('[data-type="experience-end"]').value.trim();
+                const desc = parent.querySelector('[data-type="experience-desc"]').value.trim();
+
+                if (position || org) {
+                    let entry = `${position} at ${org}`;
+                    if (start) entry += `, ${start}`;
+                    if (end) entry += ` - ${end}`;
+                    if (desc) entry += `\n  ${desc}`;
+                    experience.push(entry);
+                }
+            });
+            return experience;
+        }
+
+        function generatePrompt() {
+            const fullName = document.getElementById('fullName').value.trim();
+            if (!fullName) {
+                alert('Please enter your full name');
+                return;
+            }
+
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const website = document.getElementById('website').value.trim();
+            const location = document.getElementById('location').value.trim();
+            const position = document.getElementById('position').value.trim();
+            const institution = document.getElementById('institution').value.trim();
+            const researchInterests = document.getElementById('researchInterests').value.trim().split('\n').filter(x => x.trim());
+            const awards = document.getElementById('awards').value.trim().split('\n').filter(x => x.trim());
+            const skills = document.getElementById('skills').value.trim().split('\n').filter(x => x.trim());
+            const template = document.getElementById('template').value.trim();
+            const additionalInstructions = document.getElementById('additionalInstructions').value.trim();
+
+            const education = collectEducation();
+            const publications = collectPublications();
+            const experience = collectExperience();
+
+            // Generate the prompt
+            let prompt = `TASK: Create a Professional LaTeX Academic CV
+
+================================================================================
+PERSONAL INFORMATION
+================================================================================
+
+Name: ${fullName}`;
+
+            if (email) prompt += `\nEmail: ${email}`;
+            if (phone) prompt += `\nPhone: ${phone}`;
+            if (website) prompt += `\nWebsite: ${website}`;
+            if (location) prompt += `\nLocation: ${location}`;
+
+            if (position || institution) {
+                prompt += `\n\nCurrent Position:`;
+                if (position) prompt += `\n- Title: ${position}`;
+                if (institution) prompt += `\n- Affiliation: ${institution}`;
+            }
+
+            if (education.length > 0) {
+                prompt += `\n\n================================================================================
+EDUCATION
+================================================================================\n`;
+                education.forEach((edu, i) => {
+                    prompt += `\n${i + 1}. ${edu}`;
+                });
+            }
+
+            if (researchInterests.length > 0) {
+                prompt += `\n\n================================================================================
+RESEARCH INTERESTS
+================================================================================\n`;
+                researchInterests.forEach(interest => {
+                    prompt += `\n- ${interest}`;
+                });
+            }
+
+            if (publications.length > 0) {
+                prompt += `\n\n================================================================================
+PUBLICATIONS
+================================================================================\n`;
+                publications.forEach((pub, i) => {
+                    prompt += `\n${i + 1}. ${pub}\n`;
+                });
+            }
+
+            if (experience.length > 0) {
+                prompt += `\n\n================================================================================
+WORK EXPERIENCE
+================================================================================\n`;
+                experience.forEach((exp, i) => {
+                    prompt += `\n${i + 1}. ${exp}\n`;
+                });
+            }
+
+            if (awards.length > 0) {
+                prompt += `\n\n================================================================================
+AWARDS & HONORS
+================================================================================\n`;
+                awards.forEach(award => {
+                    prompt += `\n- ${award}`;
+                });
+            }
+
+            if (skills.length > 0) {
+                prompt += `\n\n================================================================================
+SKILLS & EXPERTISE
+================================================================================\n`;
+                skills.forEach(skill => {
+                    prompt += `\n- ${skill}`;
+                });
+            }
+
+            prompt += `\n\n================================================================================
+CV TEMPLATE & FORMATTING REQUIREMENTS
+================================================================================
+
+LaTeX Template: ${template || 'moderncv (or choose an appropriate academic CV template)'}
+
+Requirements:
+1. Use a professional academic CV LaTeX template (${template || 'moderncv, academic-cv, or similar'})
+2. Create a clean, modern, and ATS-friendly layout
+3. Use consistent formatting throughout
+4. Include proper section headings and hierarchy
+5. Ensure all LaTeX packages are properly imported
+6. Generate a complete, compilable .tex file`;
+
+            if (additionalInstructions) {
+                prompt += `\n\nAdditional Instructions:\n${additionalInstructions}`;
+            }
+
+            prompt += `\n\n================================================================================
+COMPILATION INSTRUCTIONS
+================================================================================
+
+To compile the CV:
+1. Save the generated LaTeX code to a file (e.g., cv.tex)
+2. Compile with: pdflatex cv.tex
+3. If bibliography is used: biber cv && pdflatex cv.tex && pdflatex cv.tex
+4. Verify the output PDF for formatting and completeness
+
+================================================================================
+DELIVERABLES
+================================================================================
+
+1. Complete LaTeX source file (cv.tex)
+2. Ensure all content from above is properly formatted and included
+3. Professional, publication-ready PDF output
+4. Clean, well-commented LaTeX code
+
+Please create the CV now, following all the information and requirements specified above.`;
+
+            // Display the prompt
+            document.getElementById('promptOutput').textContent = prompt;
+            document.getElementById('outputSection').style.display = 'block';
+            document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function copyPrompt() {
+            const promptText = document.getElementById('promptOutput').textContent;
+            navigator.clipboard.writeText(promptText).then(() => {
+                const successMsg = document.getElementById('successMessage');
+                successMsg.classList.add('show');
+                setTimeout(() => {
+                    successMsg.classList.remove('show');
+                }, 3000);
+            });
+        }
+
+        function downloadPrompt() {
+            const promptText = document.getElementById('promptOutput').textContent;
+            const blob = new Blob([promptText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'cv_prompt.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

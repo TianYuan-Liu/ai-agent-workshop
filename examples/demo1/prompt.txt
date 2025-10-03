@@ -1,0 +1,81 @@
+PLAN: Create Journal Club Presentation for Epigenome Review Paper
+
+================================================================================
+PREREQUISITES: PACKAGE INSTALLATION
+================================================================================
+
+IF missing LaTeX packages prevent compilation:
+
+**MiKTeX**: Enable auto-install in MiKTeX Console → Settings → "Always install missing packages on-the-fly"
+
+**TeX Live**: Install packages with `tlmgr install <package-name>` (e.g., `tlmgr install biblatex`)
+Or use auto-installer: `tlmgr install texliveonfly` then run `texliveonfly main.tex`
+
+Required packages: beamer, tikz, xcolor, biblatex, listings, graphicx, amsmath, lmodern
+
+================================================================================
+PHASE 1: RESEARCH & ANALYSIS
+================================================================================
+
+1. Read the epigenome review paper PDF to extract:
+   - Title, authors, journal, year
+   - Scope and objectives of the review
+   - Major themes and topics covered
+   - Key concepts and frameworks presented
+   - Main conclusions and future directions
+
+2. Examine figures in `/figures/` directory for relevance and quality
+
+3. Review Conesa Group Beamer template structure
+
+================================================================================
+PHASE 2: CONTENT STRUCTURING (REVIEW PAPER FORMAT)
+================================================================================
+
+4. Design presentation outline for review paper:
+   - Title slide (paper citation, presenter)
+   - Overview: Review scope and objectives
+   - Background/context
+   - Major themes (3-5 main topics from review)
+   - Key concepts per theme (with figures where applicable)
+   - Current state of knowledge
+   - Gaps and challenges identified
+   - Future directions
+   - Take-home messages
+   - Discussion questions
+
+5. Apply figure separation rule:
+   - Slide with figure ONLY, with 1-line caption on a SEPARATE line below the figure
+   - Next slide with detailed text explanation (no figure)
+   - IMPORTANT: Carefully examine each figure to understand its actual content before writing captions and explanations
+   - Match figure descriptions to what the figure actually shows, not assumptions
+
+================================================================================
+PHASE 3: IMPLEMENTATION
+================================================================================
+
+6. Create LaTeX file in `/slide/` directory
+7. Build academic-style content slides
+8. Copy theme files, logos, and figures to `/slide/`
+9. Create bibliography with review paper citation
+
+================================================================================
+PHASE 4: COMPILATION
+================================================================================
+
+10. Compile with pdflatex/biber workflow
+11. Verify formatting and figure sizing
+
+================================================================================
+KEY REQUIREMENTS
+================================================================================
+
+- Academic style with clear explanations
+- Figure slides: Figure image, then caption on SEPARATE line below (not same line)
+- Limit each slide to a maximum of 6 concise bullet points for clarity and readability
+- Explanation slides: Detailed text on separate slide (no figure)
+- CRITICAL: Read and understand figure content before adding titles/captions
+- Follow Conesa Group Beamer template guidelines
+- Figure sizing: height=0.5\textheight (safe for header/footer)
+- Output directory: /Users/tianyuan/Desktop/LaTeX/ai-agent-workshop/examples/demo1/slide/
+- IMPORTANT: Wrap > and < symbols in math mode (e.g., >10 kb → $>$10 kb, <25% → $<$25%)

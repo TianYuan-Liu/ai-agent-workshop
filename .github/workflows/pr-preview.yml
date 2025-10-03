@@ -1,0 +1,47 @@
+name: PR Preview Build
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+defaults:
+  run:
+    working-directory: examples/demo3
+
+jobs:
+  preview:
+    name: Build PR Preview
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Run tests with coverage
+        run: npm run test:coverage
+
+      - name: Build application
+        run: npm run build
+
+      - name: Comment PR with status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ Build successful! All tests passed.'
+            })

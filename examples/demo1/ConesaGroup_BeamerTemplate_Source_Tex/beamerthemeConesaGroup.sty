@@ -1,0 +1,202 @@
+\ProvidesPackage{beamerthemeConesaGroup}[2025/05/22 Conesa Group Academic Beamer Theme]
+
+% Required packages
+\RequirePackage{tikz}
+\RequirePackage{xcolor}
+\RequirePackage{calc}
+\RequirePackage{ifthen}
+
+% Define Conesa Group colors
+\definecolor{conesaTeal}{RGB}{0, 153, 136}
+\definecolor{conesaOrange}{RGB}{255, 153, 102}
+\definecolor{conesaYellow}{RGB}{255, 204, 102}
+\definecolor{conesaGray}{RGB}{80, 80, 80}
+\definecolor{conesaLightGray}{RGB}{240, 240, 235}
+
+% Set aspect ratio to 16:9
+\geometry{paperwidth=16cm,paperheight=9cm}
+
+% Set global colors
+\setbeamercolor{normal text}{fg=conesaGray, bg=white}
+\setbeamercolor{structure}{fg=conesaTeal}
+\setbeamercolor{alerted text}{fg=conesaOrange}
+\setbeamercolor{example text}{fg=conesaTeal}
+\setbeamercolor{title}{fg=conesaGray}
+\setbeamercolor{subtitle}{fg=conesaGray!70}
+\setbeamercolor{section title}{fg=conesaGray}
+\setbeamercolor{frametitle}{fg=conesaGray}
+\setbeamercolor{block title}{fg=white, bg=conesaTeal}
+\setbeamercolor{block body}{fg=conesaGray, bg=conesaLightGray}
+\setbeamercolor{caption}{fg=conesaGray}
+\setbeamercolor{bibliography entry author}{fg=conesaGray}
+\setbeamercolor{bibliography entry title}{fg=conesaTeal}
+\setbeamercolor{bibliography entry location}{fg=conesaGray}
+\setbeamercolor{bibliography entry note}{fg=conesaGray}
+
+% Set fonts
+\setbeamerfont{title}{size=\LARGE, series=\bfseries}
+\setbeamerfont{subtitle}{size=\small}
+\setbeamerfont{author}{size=\normalsize}
+\setbeamerfont{institute}{size=\normalsize}
+\setbeamerfont{date}{size=\normalsize}
+\setbeamerfont{frametitle}{size=\large, series=\bfseries}
+\setbeamerfont{block title}{size=\normalsize, series=\bfseries}
+\setbeamerfont{section in toc}{size=\large}
+\setbeamerfont{caption}{size=\small}
+\setbeamerfont{footnote}{size=\scriptsize}
+\setbeamerfont{bibliography entry author}{size=\normalsize}
+\setbeamerfont{bibliography entry title}{size=\normalsize}
+\setbeamerfont{bibliography entry location}{size=\small}
+\setbeamerfont{bibliography entry note}{size=\small}
+
+% Remove navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+% Define header and footer
+\setbeamertemplate{headline}{
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=north east, xshift=-0.5cm, yshift=-0.5cm] at (current page.north east) {
+      \includegraphics[height=1cm]{conesa_logo.png}
+    };
+  \end{tikzpicture}
+}
+
+% --------------------------------------------------
+% Modern minimalist footline with progress bar (overrides earlier definition)
+% --------------------------------------------------
+% A subtle light-gray full-width bar is drawn at the very bottom of the slide.
+% A teal progress segment grows with the slide number to give the audience a 
+% sense of progression.  Current slide / total slides is shown on the right.
+
+\setbeamertemplate{footline}{%
+  %% Compute progress ratio and resulting bar width (in pt)
+  \pgfmathsetmacro{\progressratio}{\insertframenumber/\inserttotalframenumber}
+  \pgfmathsetmacro{\barwidth}{\paperwidth*\progressratio}
+  %% Draw background and progress bar
+  \begin{tikzpicture}[remember picture,overlay]
+    % Background light-gray strip (0.2 cm high)
+    \fill[conesaLightGray] (current page.south west)
+      rectangle ([yshift=0.2cm]current page.south east);
+    % Teal progress bar – width proportional to the slide number
+    \fill[conesaOrange] (current page.south west)
+      rectangle ([xshift=\barwidth pt,yshift=0.2cm]current page.south west);
+    % Slide counter text (right-aligned)
+    \node[anchor=south east, xshift=-0.3cm, yshift=0.05cm,
+          text=conesaGray, font=\scriptsize] at (current page.south east)
+      {\insertframenumber/\inserttotalframenumber};
+  \end{tikzpicture}%
+}
+
+% Title page – redesigned clean and centered layout
+\setbeamertemplate{title page}{
+  \begin{tikzpicture}[remember picture,overlay]
+    % Full-page light gray background
+    \fill[conesaLightGray] (current page.south west) rectangle (current page.north east);
+    % Top accent bar - made thinner
+    \fill[conesaTeal] (current page.north west) rectangle ([yshift=-0.2cm]current page.north east);
+    % Bottom accent bar - made thinner
+    \fill[conesaOrange] (current page.south west) rectangle ([yshift=0.2cm]current page.south east);
+  \end{tikzpicture}
+  \begin{center}
+    \vspace*{2cm}
+    {\usebeamerfont{title}\color{conesaTeal}\inserttitle\par}
+    \ifx\insertsubtitle\@empty\else
+      \vspace{0.5em}
+      {\usebeamerfont{subtitle}\color{conesaGray}\insertsubtitle\par}
+    \fi
+    \vspace{2em}
+    {\usebeamerfont{author}\color{conesaGray}\insertauthor\par}
+    {\usebeamerfont{institute}\color{conesaGray}\insertinstitute\par}
+    {\usebeamerfont{date}\color{conesaGray}\insertdate}
+  \end{center}
+  \begin{tikzpicture}[remember picture,overlay]
+    % Logo bottom-right - adjusted yshift for thinner bar
+    \node[anchor=south east,xshift=-1cm,yshift=0.4cm] at (current page.south east) {
+      \includegraphics[height=1.5cm]{conesa_logo.png}
+    };
+  \end{tikzpicture}
+}
+
+% Frame title - Positioned via TikZ, aligned with main text area
+\setbeamertemplate{frametitle}{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=north west, xshift=1.22cm, yshift=-0.75cm] % Aligned with Beamer's default text margin
+      at (current page.north west) { 
+      \usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\insertframetitle
+    };
+  \end{tikzpicture}
+  \vspace*{0.2cm} % Space after title, adjust as needed
+\usebeamertemplate{framesubtitle}
+}
+
+\setbeamertemplate{framesubtitle}{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=north west, xshift=1.22cm, yshift=-1.3cm] at (current page.north west) {%
+      \usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertframesubtitle
+    };
+  \end{tikzpicture}
+  \vspace*{0.1cm}
+}
+
+% Section page
+\setbeamertemplate{section page}{
+  \begin{tikzpicture}[remember picture, overlay]
+    % Background with diagonal stripe
+    \fill[conesaTeal] (current page.north west) rectangle (current page.south east);
+    \fill[white] ([xshift=7cm]current page.north west) -- (current page.north east) -- (current page.south east) -- ([xshift=5cm]current page.south west) -- cycle;
+    
+    % Diagonal white line
+    \fill[white] ([xshift=6.8cm]current page.north west) -- ([xshift=7.2cm]current page.north west) -- ([xshift=5.2cm]current page.south west) -- ([xshift=4.8cm]current page.south west) -- cycle;
+    
+    % Section title - Left aligned
+    \node[anchor=west, text width=10cm, align=left] at ([xshift=1cm]current page.center) {
+      \usebeamerfont{section title}\usebeamercolor[fg]{section title}\insertsection
+    };
+    
+    % Logo
+    \node[anchor=south east, xshift=-1cm, yshift=1cm] at (current page.south east) {
+      \includegraphics[height=2cm]{conesa_logo.png}
+    };
+  \end{tikzpicture}
+}
+
+% Table of contents
+\setbeamertemplate{section in toc}{
+  \hspace*{1em}\inserttocsectionnumber.~\inserttocsection\par
+}
+
+% Blocks
+\setbeamertemplate{block begin}{
+  \begin{beamercolorbox}[rounded=true, shadow=false, leftskip=1em, rightskip=1em, sep=0.5em]{block title}
+    \usebeamerfont{block title}\insertblocktitle
+  \end{beamercolorbox}
+  \begin{beamercolorbox}[rounded=true, shadow=false, leftskip=1em, rightskip=1em, vmode]{block body}
+    \usebeamerfont{block body}\vspace{0.5em}
+}
+\setbeamertemplate{block end}{
+  \vspace{0.5em}\end{beamercolorbox}
+}
+
+% Itemize and enumerate
+\setbeamertemplate{itemize item}{\color{conesaTeal}$\blacktriangleright$}
+\setbeamertemplate{itemize subitem}{\color{conesaTeal}$\blacktriangleright$}
+\setbeamertemplate{enumerate item}{\insertenumlabel.}
+\setbeamertemplate{enumerate subitem}{\insertenumlabel.\insertsubenumlabel}
+
+% Caption
+\setbeamertemplate{caption}{\insertcaption}
+
+% Bibliography
+% \setbeamertemplate{bibliography item}[text] % Commenting out the old template
+% \setbeamertemplate{bibliography item}{%
+%   \usebeamerfont{bibliography item}%
+%   \usebeamercolor[fg]{bibliography item}%
+%   \insertbibmacro{begentry}
+%   \printnames{author}, \newblock
+%   \printfield{title}, \newblock
+%   \printfield{year}
+%   \insertbibmacro{endentry}
+% } % Removing the custom bibitem template
+
+% Define a command for citations
+\newcommand{\citationexample}[1]{{\footnotesize\usebeamercolor[fg]{bibliography entry note}#1}}

@@ -1,0 +1,344 @@
+\documentclass[aspectratio=169]{beamer}
+
+% Use the Conesa Group theme
+\usetheme{ConesaGroup}
+
+% Package for better font rendering
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% Package for graphics
+\usepackage{graphicx}
+
+% Package for tables with colors
+\usepackage{colortbl}
+
+% Package for mathematics
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% Package for bibliography and citations
+\usepackage[natbib=true,backend=biber,style=numeric,sorting=none,autocite=superscript]{biblatex}
+\addbibresource{references.bib}
+
+% Package for code listings
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{conesaTeal}\bfseries,
+  commentstyle=\color{conesaGray},
+  stringstyle=\color{conesaOrange},
+  numbers=left,
+  numberstyle=\tiny\color{conesaGray},
+  numbersep=5pt,
+  frame=single,
+  breaklines=true,
+  breakatwhitespace=true,
+}
+
+% Title information
+\title{Your Presentation Title}
+\subtitle{Your Subtitle (Optional)}
+\author[Your Name et al.]{Your Name\inst{1} \and Co-Author Name\inst{2}}
+\date{}
+
+% here we force a left-aligned institute
+\institute[Institutions]{%
+  \begin{flushleft}
+    \inst{1}Your Institution, Department\\
+    \inst{2}Co-Author Institution\\[1ex]
+    \small\today
+  \end{flushleft}%
+}
+
+\begin{document}
+
+% Title page
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+% Table of contents
+\begin{frame}{Outline}
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+% Section: Introduction
+\section{Introduction}
+
+\begin{frame}{Introduction}
+  \begin{itemize}
+    \item Your first main point
+    \item Your second main point
+    \item Your third main point
+  \end{itemize}
+  
+  \vspace{0.5cm}
+  \begin{block}{Key Concept}
+    Describe your main concept or research question here.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Background}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Previous Work}
+        \begin{itemize}
+          \item Prior research point 1
+          \item Prior research point 2
+          \item Prior research point 3
+        \end{itemize}
+        \citationexample{Reference your sources appropriately}
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Current Challenges}
+        \begin{itemize}
+          \item Challenge 1
+          \item Challenge 2
+          \item Challenge 3
+        \end{itemize}
+        \citationexample{Cite relevant literature}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Problem Statement}
+  \begin{table}
+    \begin{tabular}{|p{3cm}|p{5cm}|p{5cm}|}
+      \hline
+      \rowcolor{conesaLightGray}
+      \textbf{Category} & \textbf{Description} & \textbf{Impact} \\
+      \hline
+      \textbf{Issue 1} & Description of first issue & Impact description \\
+      \hline
+      \textbf{Issue 2} & Description of second issue & Impact description \\
+      \hline
+      \textbf{Issue 3} & Description of third issue & Impact description \\
+      \hline
+    \end{tabular}
+    
+    \vspace{0.2cm}
+    {\small \textbf{Table 1} \textbar{} Summary of key issues addressed in this work.}
+  \end{table}
+\end{frame}
+
+\begin{frame}{Research Objectives}
+  \begin{alertblock}{Primary Goals}
+    \begin{itemize}
+      \item Objective 1: Describe your first objective
+      \item Objective 2: Describe your second objective
+      \item Objective 3: Describe your third objective
+    \end{itemize}
+  \end{alertblock}
+  
+  \begin{block}{Our Approach}
+    Brief description of your methodology or solution approach.
+  \end{block}
+\end{frame}
+
+% Section: Methods
+\section{Methods}
+
+\begin{frame}{Methodology Overview}
+  \begin{figure}
+    \centering
+    \rule{0.8\textwidth}{0.5\textheight} % Placeholder for methodology figure
+    {\small \textbf{Figure 1} \textbar{} Overview of your methodology or workflow.}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Detailed Methods}
+  \begin{figure}
+    \centering
+    \rule{0.8\textwidth}{0.5\textheight} % Placeholder for detailed methods figure
+    {\small \textbf{Figure 2} \textbar{} Detailed description of your methods or system.}
+  \end{figure}
+\end{frame}
+
+% Section: Results
+\section{Results}
+
+\begin{frame}{Main Results}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Key Findings}
+        \begin{itemize}
+          \item Finding 1: Description
+          \item Finding 2: Description
+          \item Finding 3: Description
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Statistical Results}
+        \begin{itemize}
+          \item Metric 1: Value
+          \item Metric 2: Value
+          \item Metric 3: Value
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+  
+  \vspace{0.3cm}
+  \begin{alertblock}{Key Discovery}
+    Highlight your most important finding or contribution.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{Quantitative Results}
+  \begin{figure}
+    \centering
+    \rule{0.8\textwidth}{0.5\textheight} % Placeholder for results figure
+    {\small \textbf{Figure 3} \textbar{} Your main quantitative results.}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Comparative Analysis}
+  \begin{figure}
+    \centering
+    \rule{0.8\textwidth}{0.5\textheight} % Placeholder for comparison figure
+    {\small \textbf{Figure 4} \textbar{} Comparison with existing methods or approaches.}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Performance Metrics}
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      \begin{block}{Key Performance Formulas}
+        {\scriptsize
+        \begin{align}
+          \text{Metric 1} &= \frac{\text{Variable A}}{\text{Variable B}} \\[0.2em]
+          \text{Metric 2} &= \frac{\text{Variable C}}{\text{Variable D}} \\[0.2em]
+          \text{Metric 3} &= \frac{\text{Variable E}}{\text{Variable F}} \\[0.2em]
+          \text{Metric 4} &= \frac{\text{Variable G}}{\text{Variable H}} \\[0.2em]
+          \text{Metric 5} &= \frac{\text{Variable I}}{\text{Variable J}}
+        \end{align}
+        }
+      \end{block}
+    \end{column}
+    \begin{column}{0.43\textwidth}
+      \begin{block}{\small Definitions}
+        {\footnotesize
+        \begin{itemize}
+          \item \textbf{Variable A}: Description
+          \item \textbf{Variable B}: Description  
+          \item \textbf{Variable C}: Description
+          \item \textbf{Variable D}: Description
+          \item \textbf{Variable E}: Description
+        \end{itemize}
+        }
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Additional Analysis}
+  \begin{figure}
+    \centering
+    \rule{0.8\textwidth}{0.5\textheight} % Placeholder for additional analysis figure
+    {\small \textbf{Figure 5} \textbar{} Additional analysis or validation results.}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Summary of Results}
+  \framesubtitle{Key findings from your analysis}
+  \begin{figure}
+    \centering
+    \rule{0.8\textwidth}{0.5\textheight} % Placeholder for summary figure
+    {\small \textbf{Figure 6} \textbar{} Summary of your main findings.}
+  \end{figure}
+\end{frame}
+
+% Section: Discussion
+\section{Discussion}
+
+\begin{frame}{Discussion}
+  \begin{alertblock}{Key Implications}
+    \begin{itemize}
+      \item Implication 1: What does this mean for the field?
+      \item Implication 2: How does this advance current knowledge?
+      \item Implication 3: What are the practical applications?
+    \end{itemize}
+  \end{alertblock}
+  
+  \begin{block}{Limitations}
+    Acknowledge any limitations of your work or areas for future improvement.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Future Work}
+  \begin{itemize}
+    \item Future direction 1
+    \item Future direction 2
+    \item Future direction 3
+  \end{itemize}
+  
+  \begin{block}{Next Steps}
+    Outline the immediate next steps for continuing this research.
+  \end{block}
+\end{frame}
+
+% Section: Conclusion
+\section{Conclusion}
+
+\begin{frame}{Conclusion}
+  \begin{itemize}
+    \item Summary point 1
+    \item Summary point 2
+    \item Summary point 3
+  \end{itemize}
+  
+  \vspace{1cm}
+  
+  \begin{center}
+    \large\textbf{Thank you for your attention!}
+    
+    \vspace{0.5cm}
+    
+    \normalsize
+    Questions?
+  \end{center}
+\end{frame}
+
+% References slide
+\begin{frame}[allowframebreaks]{References}
+  \printbibliography
+\end{frame}
+
+% Backup slides
+\appendix
+\section{Appendix}
+
+\begin{frame}{Appendix: Additional Information}
+  \begin{itemize}
+    \item Additional detail 1
+    \item Additional detail 2
+    \item Additional detail 3
+  \end{itemize}
+  
+  \begin{block}{Technical Details}
+    Include any technical details that may be useful during Q\&A.
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Appendix: Code Example}
+  \begin{verbatim}
+# Your code example here
+def your_function(parameter):
+    """
+    Description of your function
+    """
+    result = process_data(parameter)
+    return result
+
+# Usage example
+data = load_data()
+result = your_function(data)
+print("Result:", result)
+  \end{verbatim}
+\end{frame}
+
+\end{document}

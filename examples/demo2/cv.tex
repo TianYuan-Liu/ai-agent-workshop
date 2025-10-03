@@ -1,0 +1,113 @@
+%% Tianyuan Liu - Academic CV
+%% Compiled with: pdflatex cv.tex
+
+\documentclass[11pt,a4paper,sans]{moderncv}
+
+% moderncv themes
+\moderncvstyle{banking}
+\moderncvcolor{blue}
+
+% character encoding
+\usepackage[utf8]{inputenc}
+
+% adjust page margins
+\usepackage[scale=0.85]{geometry}
+
+% bibliography
+\usepackage[backend=biber,style=numeric,sorting=ydnt,maxbibnames=99]{biblatex}
+\addbibresource{cv_publications.bib}
+
+% personal data
+\name{Tianyuan}{Liu}
+\title{Computational Genomics Researcher}
+\address{Paterna, Valencia}{Spain}
+\phone[mobile]{+34~601569170}
+\email{tianyuan.liu@csic.es}
+\homepage{tianyuan-liu.github.io}
+\social[github]{tianyuan-liu}
+
+% reduce spacing in lists
+\usepackage{enumitem}
+\setlist{noitemsep}
+
+\begin{document}
+
+\makecvtitle
+
+\section{About}
+Computational genomics researcher specializing in long-read sequencing technologies and transcriptome analysis. Part of the LongTREC (Long-read Transcriptomics Research and Education Consortium) Marie Skłodowska-Curie Actions program. Research focuses on developing computational methods for analyzing long-read RNA sequencing data, with particular expertise in isoform regulatory biology and multiomics integration.
+
+\section{Education}
+\cventry{2023--Present}{PhD Student \& Early Stage Researcher}{Institute for Integrative Systems Biology}{Spanish National Research Council (CSIC-UV)}{Valencia, Spain}{Advisor: Dr. Ana Conesa\\LongTREC Marie Skłodowska-Curie Actions program\\Focus: Long-read multiomics methods for isoform regulatory biology}
+\cventry{2016--2020}{Bachelor of Engineering in Bioengineering}{Huazhong Agricultural University (HZAU)}{China}{}{Comprehensive education in bioengineering with focus on computational biology and bioinformatics applications}
+
+\section{Research Focus}
+\cvitem{Main Topic}{Long-read multiomics methods to understand isoform regulatory biology}
+\cvitem{Areas}{Quality control methods, isoform detection, epigenome profiling, transcriptome assembly, differential analysis}
+
+\section{Research Experience}
+\cventry{2023--Present}{PhD Student \& Early Stage Researcher}{Institute for Integrative Systems Biology, CSIC-UV}{Valencia, Spain}{}{Developing computational methods for isoform regulatory biology\\Contributing to major software projects like SQANTI3\\Collaborating with international research networks}
+\cventry{2019--2020}{Research Experience}{University of Florida, Genetics Institute}{USA}{}{Supervised by Dr. Ana Conesa and Dr. Guillem Ylla\\Working on MirCure project for microRNA quality control and curation methods}
+
+\section{Publications}
+
+\subsection{Peer-Reviewed Articles}
+
+\begin{enumerate}[leftmargin=*,label=\arabic*.]
+
+\item \textbf{Liu, T.}, \& Conesa, A. (2025). Profiling the epigenome using long-read sequencing. \textit{Nature Genetics}, 57(1), 27--41.
+
+\item Monzó, C., \textbf{Liu, T.}, \& Conesa, A. (2025). Transcriptomics in the era of long-read sequencing. \textit{Nature Reviews Genetics}, 1--21.
+
+\item Pardo-Palacios, F.J., Arzalluz-Luque, A., Kondratova, L., Salguero, P., Mestre-Tomás, J., Amorín, R., Estevan-Morió, E., \textbf{Liu, T.}, et al. (2024). SQANTI3: curation of long-read transcriptomes for accurate identification of known and novel isoforms. \textit{Nature Methods}, 21(5), 793--797.
+
+\item Pardo-Palacios, F.J., Wang, D., Reese, F., Diekhans, M., Carbonell-Sala, S., ..., \textbf{Liu, T.}, ..., Conesa, A. (2024). Systematic assessment of long-read RNA-seq methods for transcript identification and quantification. \textit{Nature Methods}, 21(7), 1349--1363.
+
+\item Mestre-Tomás, J., \textbf{Liu, T.}, Pardo-Palacios, F., \& Conesa, A. (2023). SQANTI-SIM: a simulator of controlled transcript novelty for lrRNA-seq benchmark. \textit{Genome Biology}, 24(1), 286.
+
+\item \textbf{Liu, T.}, Salguero, P., Petek, M., Martínez-Mira, C., Balzano-Nogueira, L., Conesa, A., et al. (2022). PaintOmics 4: New tools for the integrative analysis of multi-omics datasets supported by multiple pathway databases. \textit{Nucleic Acids Research}, 50(W1), W551--W559.
+
+\item \textbf{Liu, T.}, Balzano-Nogueira, L., Lleó, A., \& Conesa, A. (2020). Transcriptional differences for COVID-19 disease map genes between males and females indicate a different basal immunophenotype relevant to the disease. \textit{Genes}, 11(12), 1447.
+
+\item Ylla, G., \textbf{Liu, T.}, \& Conesa, A. (2020). MirCure: a tool for quality control, filter and curation of microRNAs of animals and plants. \textit{Bioinformatics}, 36(Supplement\_2), i618--i624.
+
+\end{enumerate}
+
+\subsection{Preprints \& Under Review}
+
+\begin{enumerate}[leftmargin=*,label=\arabic*.,resume]
+
+\item \textbf{Liu, T.}, Paniagua, A., Jetzinger, F., Ferrández-Peral, L., Frankish, A., \& Conesa, A. (2025). Transcriptome Universal Single-isoform COntrol (TUSCO): A Framework for Evaluating Transcriptome Reconstruction Quality. \textit{bioRxiv}, 2025.08.23.671926. (Under review at \textit{Nature Communications})
+
+\end{enumerate}
+
+\section{Conference Presentations}
+\cvitem{2025}{Transcriptome Universal Single-isoform Control (TUSCO): A Framework for Evaluating Transcriptome Quality. \textit{Oral presentation}, ISMB/ECCB 2025, Liverpool, United Kingdom. Track: iRNA: Integrative RNA Biology.}
+
+\section{Major Projects}
+\cventry{}{SQANTI3}{}{}{}{Comprehensive quality control and curation pipeline for long-read transcriptomes. Contribution: Report generation and documentation.}
+\cventry{}{SQANTI-SIM}{}{}{}{Simulator of controlled transcript novelty for long-read RNA-seq benchmarking. Contribution: Added PBSIM integration to the simulation framework.}
+\cventry{}{PaintOmics 4}{}{}{}{Advanced web-based platform for integrative analysis of multi-omics datasets with support for multiple pathway databases. Technologies: JavaScript, web-based interface, multi-omics integration.}
+\cventry{}{MirCure}{}{}{}{Specialized tool for microRNA quality control, filtering, and curation in both animals and plants. Language: R, bioinformatics pipeline.}
+\cventry{}{DeCovid}{}{}{}{Tool for conducting wide-spread transcriptional analysis for COVID-19 Disease Map genes. Features: Differential expression analysis, GO enrichment, interactive web interface.}
+
+\section{Technical Skills}
+
+\subsection{Programming Languages}
+\cvitem{}{Python, R, JavaScript, HTML/CSS, Bash/Shell}
+
+\subsection{Technologies \& Tools}
+\cvitem{}{PacBio, Oxford Nanopore, Bioconductor, Docker, Git/GitHub, Nextflow, Conda/Mamba}
+
+\subsection{Data Analysis \& Methods}
+\cvitem{}{Statistical analysis, machine learning, data visualization, pipeline development, reproducible research}
+
+\subsection{High-Performance Computing}
+\cvitem{}{SLURM, cluster workflows, cloud integration}
+
+\vfill
+\begin{center}
+\textit{\small Last updated: \today}
+\end{center}
+
+\end{document}

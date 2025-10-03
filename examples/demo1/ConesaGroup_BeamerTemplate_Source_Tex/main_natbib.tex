@@ -1,0 +1,224 @@
+% !TEX root = main.tex
+\documentclass[aspectratio=169]{beamer}
+
+% Use a standard Beamer theme instead of custom theme to isolate error
+\usetheme{Madrid}
+\usecolortheme{beaver}
+
+% Package for better font rendering
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% Package for graphics
+\usepackage{graphicx}
+
+% Package for mathematics
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% Package for bibliography and citations - using natbib directly instead of biblatex
+\usepackage{natbib}
+\bibliographystyle{plainnat}
+
+% Define a simple citation example command without using custom theme macros
+\newcommand{\simplecite}[1]{{\footnotesize #1}}
+
+% Title information
+\title{Academic Presentation Title}
+\subtitle{Subtitle or Additional Information}
+\author[Author et al.]{Author Name\inst{1} \and Co-Author Name\inst{2}}
+\institute[Universities]{\inst{1}Department of Research, University Name\\
+                        \inst{2}Research Institute, University Name}
+\date{Conference Name, \today}
+
+% Add slide numbers to footer
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+      \usebeamerfont{author in head/foot}\insertshortauthor
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+      \usebeamerfont{title in head/foot}\insertshorttitle
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+      \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+      \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+    \end{beamercolorbox}%
+  }%
+  \vskip0pt%
+}
+
+\begin{document}
+
+% Title page
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+% Table of contents
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+% Section: Introduction
+\section{Introduction}
+
+\begin{frame}{Introduction}
+  \begin{itemize}
+    \item This is a modern academic presentation template
+    \item Designed for the Conesa Group
+    \item Features a clean, professional look
+    \item Optimized for 16:9 aspect ratio
+    \item Includes proper citations \cite{Smith2020}
+  \end{itemize}
+  
+  \vspace{0.5cm}
+  \begin{block}{Research Question}
+    How can we design effective academic presentations that follow best practices while maintaining visual appeal?
+  \end{block}
+\end{frame}
+
+% Section: Methods
+\section{Methods}
+
+\begin{frame}{Methods}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Method 1}
+        \begin{itemize}
+          \item Step 1
+          \item Step 2
+          \item Step 3
+        \end{itemize}
+        \simplecite{Based on \citeauthor{Johnson2019} (\citeyear{Johnson2019})}
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Method 2}
+        \begin{itemize}
+          \item Step A
+          \item Step B
+          \item Step C
+        \end{itemize}
+        \simplecite{Adapted from \citeauthor{Garcia2021} (\citeyear{Garcia2021})}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% Section: Results
+\section{Results}
+
+\begin{frame}{Results}
+  \begin{figure}
+    \centering
+    \rule{0.8\textwidth}{0.6\textheight} % Placeholder for a figure
+    \caption{Sample figure caption with citation \cite{Wang2018}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Numerical Results}
+  \begin{table}
+    \centering
+    \begin{tabular}{lccc}
+      \hline
+      \textbf{Method} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-Score} \\
+      \hline
+      Method 1 & 0.92 & 0.87 & 0.89 \\
+      Method 2 & 0.88 & 0.91 & 0.89 \\
+      Method 3 & 0.95 & 0.82 & 0.88 \\
+      \hline
+    \end{tabular}
+    \caption{Performance comparison of different methods \cite{Chen2022}}
+  \end{table}
+\end{frame}
+
+% Section: Discussion
+\section{Discussion}
+
+\begin{frame}{Discussion}
+  \begin{alertblock}{Key Findings}
+    \begin{itemize}
+      \item Finding 1: Academic presentations require proper citations \cite{Smith2020}
+      \item Finding 2: Left-aligned titles improve readability \cite{Johnson2019}
+      \item Finding 3: Slide numbers are essential for reference during Q\&A
+    \end{itemize}
+  \end{alertblock}
+  
+  \begin{block}{Implications}
+    This research contributes to the field by providing new insights into effective academic presentation design, as suggested by \citeauthor{Garcia2021} (\citeyear{Garcia2021}).
+  \end{block}
+\end{frame}
+
+% Section: Conclusion
+\section{Conclusion}
+
+\begin{frame}{Conclusion}
+  \begin{itemize}
+    \item Academic presentations should follow scholarly conventions
+    \item Citations and references must be properly formatted
+    \item Visual design should support, not distract from content
+  \end{itemize}
+  
+  \vspace{1cm}
+  
+  \begin{center}
+    \large\textbf{Thank you for your attention!}
+    
+    \vspace{0.5cm}
+    
+    \normalsize
+    Contact: \texttt{email@example.com}
+  \end{center}
+\end{frame}
+
+% References slide
+\begin{frame}[allowframebreaks]{References}
+  \bibliography{references}
+\end{frame}
+
+% Backup slides
+\appendix
+\section{Appendix}
+
+\begin{frame}{Appendix: Additional Data}
+  \begin{itemize}
+    \item Additional information that may be useful during Q\&A
+    \item Technical details omitted from the main presentation
+    \item Extended bibliography and reading recommendations
+  \end{itemize}
+  
+  \begin{block}{Methodological Notes}
+    The approach used in this study builds on previous work by \citeauthor{Wang2018} (\citeyear{Wang2018}) and extends it with new techniques from \citeauthor{Chen2022} (\citeyear{Chen2022}).
+  \end{block}
+\end{frame}
+
+\begin{frame}{Appendix: Code Example}
+  \begin{verbatim}
+# Example Python code
+import numpy as np
+import matplotlib.pyplot as plt
+
+def analyze_data(data):
+    """
+    Analyze the provided data and return results
+    """
+    results = np.mean(data, axis=0)
+    return results
+
+# Generate sample data
+data = np.random.normal(0, 1, (100, 5))
+results = analyze_data(data)
+
+# Plot results
+plt.figure(figsize=(10, 6))
+plt.bar(range(len(results)), results)
+plt.title("Analysis Results")
+plt.show()
+  \end{verbatim}
+  
+  \simplecite{Implementation based on \citeauthor{Smith2020} (\citeyear{Smith2020})}
+\end{frame}
+
+\end{document}
