@@ -1,0 +1,77 @@
+You are an expert React + Vite front-end engineer and DevOps specialist. Build a production-grade personal portfolio website for Tianyuan Liu (Computational Genomics Researcher at CSIC-UV) using the assets in this repository, especially `cv.pdf` for all content.
+
+## High-Level Goals
+- Deliver a responsive, accessible, and SEO-friendly single-page site deployed as a static bundle.
+- Emphasize academic professionalism, clean typography, and subtle animated interactions.
+- Ensure easy content maintenance with structured data sources (JSON/JS modules).
+
+## Technical Stack
+- React 18 with Vite 5.
+- Tailwind CSS 3 for styling; configure color palette to match teal/blue accent from existing designs.
+- TypeScript is optional; if omitted, use modern JSX with prop-types when helpful.
+- Use lucide-react (or similar) for icons.
+
+## Required Pages & Sections
+1. Hero: Name, title, location, contact CTAs, social links.
+2. About: Short bio, research focus, impact statement with key metrics.
+3. Education timeline.
+4. Research Experience with role, organization, dates, achievements.
+5. Publications: Highlight 6 most recent; include citation, venue, year, DOI link.
+6. Projects: Cards with description, technologies, and result/outcome tags.
+7. Skills matrix: grouped by categories (Genomics, Data Science, Programming Languages, Tools).
+8. Awards & Grants (optional if data exists).
+9. Contact footer: email, location, quick links, PDF CV download button.
+
+## Functionality & UX
+- Mobile-first layout, breakpoints at 640px, 1024px, 1280px.
+- Smooth scrolling navigation with sticky header and active-link highlighting.
+- Provide light/dark mode toggle with Tailwind theming.
+- Animate section entrances with small fade/slide transitions (using Framer Motion or CSS).
+- Include accessible skip-to-content link, proper landmarks, and ARIA labels.
+
+## Data & Content
+- Extract CV data into `src/data/cvData.js` (or .ts) exporting structured objects.
+- Components should consume data via props; avoid hard-coding text inside UI components.
+- Add sample images/avatars to `public/` and reference them responsibly.
+
+## Testing Requirements
+- Set up Vitest + React Testing Library + @testing-library/jest-dom.
+- Achieve ≥80% statement coverage; provide `npm run test:coverage` script.
+- Write unit tests for:
+  - Navigation/header behavior (active link, skip link visibility).
+  - Hero renders CTA buttons and handles CV download link.
+  - Data-driven sections (Education, Publications, Projects) render all entries from the data module.
+  - Dark mode toggle updates body class and persists preference (use localStorage mock).
+- Provide at least one accessibility-focused test per major section (landmarks, aria-labels).
+
+## CI/CD Requirements
+- Include `.github/workflows/ci.yml` running on push and PR:
+  - Node matrix (18.x, 20.x).
+  - `npm ci`, lint (`npm run lint`), unit tests with coverage, build (`npm run build`).
+  - Upload coverage to Codecov (use tokenless action placeholder).
+- Add `deploy.yml` triggered on `main` branch success to deploy `dist/` to GitHub Pages using `actions/deploy-pages`.
+- Add `pr-preview.yml` to build preview artifacts and comment status on PRs.
+- Fail builds on lint/test errors; surface coverage percentage in logs.
+
+## Tooling & Quality
+- Configure ESLint with React and Testing Library plugins; add Tailwind class sorting.
+- Prettier or eslint-config-prettier for formatting consistency.
+- Tailwind config: custom colors, box-shadows, typography plugin.
+- Vite config: base path for GitHub Pages, alias `@` to `src`.
+- Provide `postcss.config.js` with Tailwind + Autoprefixer.
+- Add `npm run lint`, `npm run format`, `npm run preview` scripts.
+
+## Documentation & Deliverables
+- `README.md` covering project overview, setup, scripts, testing, CI/CD, deployment, and customization instructions.
+- `QUICKSTART.md` summarizing install/build/test steps.
+- Include `prompt.txt` (this file) at repository root for reproducibility.
+- Generate `coverage/` report when tests run (but ignore in VCS via `.gitignore`).
+
+## Acceptance Criteria
+- Project builds without errors via `npm run build`.
+- `npm run lint` and `npm run test:coverage` pass locally and in CI.
+- Lighthouse performance and accessibility scores ≥90 on desktop.
+- Deployment workflow publishes the site automatically after successful CI on `main`.
+- Source code well-structured (components/, data/, hooks/, layouts/ folders as needed) with meaningful comments only where logic is non-obvious.
+
+Deliver the complete project with all configuration, tests, and documentation ready for continuous delivery.

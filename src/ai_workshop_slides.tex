@@ -19,8 +19,21 @@
 \usepackage{amssymb}
 
 % Package for bibliography and citations
-\usepackage[natbib=true,backend=biber,style=numeric,sorting=none,autocite=superscript]{biblatex}
+\usepackage[natbib=true,backend=biber,style=numeric-comp,sorting=none]{biblatex}
 \addbibresource{ai_workshop_references.bib}
+
+% Configure citations to be superscript with brackets [1], [2], [3]
+\DeclareCiteCommand{\supercite}[\mkbibsuperscript]
+  {\iffieldundef{prenote}
+     {}
+     {\BibliographyWarning{Ignoring prenote argument}}%
+   \iffieldundef{postnote}
+     {}
+     {\BibliographyWarning{Ignoring postnote argument}}}
+  {\usebibmacro{citeindex}%
+   \bibopenbracket\printtext[bibhyperref]{\printfield{labelnumber}}\bibclosebracket}
+  {\supercitedelim}
+  {}
 
 % Package for code listings
 \usepackage{listings}
@@ -79,6 +92,52 @@
   \tableofcontents[hideallsubsections]
 \end{frame}
 
+% Audience Poll
+\begin{frame}{Quick Poll: Your AI Experience}
+  \centering
+  \large\bfseries
+  \textcolor{conesaTeal}{Let's see where everyone is!}
+
+  \vspace{0.5cm}
+  \normalsize
+  
+  \begin{enumerate}
+    \item \textbf{Who uses LLMs?}\\
+    \small (ChatGPT, Gemini, Claude for conversations)
+    
+    \vspace{0.5cm}
+    
+    \item \textbf{Who uses coding agents?}\\
+    \small (GitHub Copilot, Cursor, Claude Code, Gemini CLI)
+    
+    \vspace{0.5cm}
+    
+    \item \textbf{Who uses agents for everything?}\\
+    \small (Slides, CVs, research papers, full workflows)
+  \end{enumerate}
+
+  \vspace{0.5cm}
+  \centering
+  \normalsize
+  \textit{Raise your hand for each one!}
+\end{frame}
+
+% Quick Install
+\begin{frame}[fragile]{Quick Start: Quick Install}
+  \begin{lstlisting}[language=bash, basicstyle=\small\ttfamily]
+# Using npx (no installation required)
+npx https://github.com/google-gemini/gemini-cli
+
+# Install globally with npm
+npm install -g @google/gemini-cli
+
+# Install globally with Homebrew (macOS/Linux)
+brew install gemini-cli
+
+# Requirements: Node.js v20+, macOS/Linux/Windows
+  \end{lstlisting}
+\end{frame}
+
 % Workshop Structure Overview
 \begin{frame}{Workshop Structure}
   \begin{columns}[T]
@@ -91,7 +150,7 @@
       \normalsize
 
       \begin{enumerate}
-        \item \textbf{AI Agents Fundamentals}\\
+        \item \textbf{Introduction to AI-Assisted Development}\\
         \small ReAct, MCP, Tools
         
         \vspace{0.3cm}
@@ -101,13 +160,13 @@
         
         \vspace{0.3cm}
         
-        \item \textbf{Responsible AI}\\
+        \item \textbf{Responsible AI \& Production Best Practices}\\
         \small Best practices \& quality
         
         \vspace{0.3cm}
         
-        \item \textbf{Future Directions}\\
-        \small What's next
+        \item \textbf{Conclusion}\\
+        \small Future directions
       \end{enumerate}
     \end{column}
     \begin{column}{0.48\textwidth}
@@ -139,6 +198,34 @@
   \centering
   \normalsize
   \textbf{Hands-on + Theory} for practical AI-assisted research
+\end{frame}
+
+% Clone Repository Slide
+\begin{frame}[fragile]{Let's Get Started: Clone the Repository}
+  \begin{center}
+    \large\bfseries
+    \textcolor{conesaTeal}{Clone the Workshop Materials}
+
+    \vspace{0.8cm}
+
+    \begin{lstlisting}[language=bash, basicstyle=\large\ttfamily]
+git clone https://github.com/TianYuan-Liu/ai-agent-workshop
+    \end{lstlisting}
+
+    \vspace{0.8cm}
+
+    \normalsize
+    This repository contains:
+    \begin{itemize}
+      \item All demo examples
+      \item LaTeX templates
+      \item Configuration files
+      \item README with setup instructions
+    \end{itemize}
+
+    \vspace{0.5cm}
+    \textit{Please clone this now so you can follow along with the demos!}
+  \end{center}
 \end{frame}
 
 % Section: Introduction to AI-Assisted Development
@@ -183,7 +270,7 @@
   \vspace{0.5cm}
   \centering
   \normalsize
-  \textbf{Agent = LLM + Tools + Memory + Planning}
+  \textbf{Agent = LLM + Tools + Memory + Planning}\supercite{xi2023rise}
 \end{frame}
 
 \begin{frame}{Reason Only and Act Only}
@@ -249,12 +336,12 @@
     \end{tikzpicture}
   \end{minipage}
   \vspace{0.3cm}
-  {\color{reactPrimary}\textbf{ReAct (Reason + Act)}}
+  {\color{reactPrimary}\textbf{ReAct (Reason + Act)}\supercite{yao2023react}}
 \end{frame}
 
 \begin{frame}{Why Do We Need MCP?}
   \begin{block}{The Missing Link}
-    ReAct requires \textbf{tools} to interact with the environment --- but how does the LM find and use them?
+    ReAct combines reasoning and action, but lacks a standardized, reliable interface for taking actions.
   \end{block}
 
   \vspace{0.5cm}
@@ -263,29 +350,27 @@
     \begin{column}{0.48\textwidth}
       \centering
       \large\bfseries
-      \textcolor{conesaOrange}{The Challenge}
+      \textcolor{conesaOrange}{Without MCP}
 
-      \vspace{0.3cm}
+      \vspace{0.5cm}
       \normalsize
 
       \begin{itemize}
-        \item Each tool has unique API
-        \item Manual integration required
-        \item LM can't discover tools
+        \item Custom code for each AI agent
+        \item Tools stay invisible to AI
       \end{itemize}
     \end{column}
     \begin{column}{0.48\textwidth}
       \centering
       \large\bfseries
-      \textcolor{conesaTeal}{The Solution: MCP}
+      \textcolor{conesaTeal}{With MCP}
 
-      \vspace{0.3cm}
+      \vspace{0.5cm}
       \normalsize
 
       \begin{itemize}
-        \item Standardized protocol
-        \item Auto tool discovery
-        \item LM acts with environment
+        \item One protocol for all agents
+        \item AI finds and uses tools itself
       \end{itemize}
     \end{column}
   \end{columns}
@@ -293,7 +378,7 @@
   \vspace{0.5cm}
   \centering
   \normalsize
-  \textbf{MCP} = The bridge enabling ReAct to work in practice
+  \textbf{MCP} = The bridge enabling ReAct to work in practice\supercite{anthropic2024mcp}
 \end{frame}
 
 \begin{frame}{API vs MCP: Before and After}
@@ -302,7 +387,7 @@
       \centering
       {\large\bfseries\textcolor{conesaOrange}{Before MCP}}
 
-      \vspace{0.3cm}
+      \vspace{0.5cm}
       \begin{tikzpicture}[scale=0.65, transform shape, node distance=1.0cm and 1.3cm, every node/.style={font=\small}]
         \node[draw, fill=conesaLightGray!60, rounded corners, minimum width=1.8cm, minimum height=0.9cm, thick] (llmA) {LLM};
         \node[draw, fill=white, rounded corners, minimum width=1.8cm, minimum height=0.8cm, below left=of llmA] (apiA) {API 1};
@@ -323,7 +408,7 @@
       \centering
       {\large\bfseries\textcolor{conesaTeal}{After MCP}}
 
-      \vspace{0.3cm}
+      \vspace{0.5cm}
       \begin{tikzpicture}[scale=0.65, transform shape, node distance=1.0cm and 1.3cm, every node/.style={font=\small}]
         \node[draw, fill=conesaLightGray!60, rounded corners, minimum width=1.8cm, minimum height=0.9cm, thick] (llmB) {LLM};
         \node[draw, fill=conesaTeal!20, rounded corners, minimum width=2.2cm, minimum height=0.9cm, thick, below=of llmB] (mcp) {Model Context Protocol};
@@ -344,7 +429,7 @@
     \end{column}
   \end{columns}
 
-  \vspace{0.4cm}
+  \vspace{0.5cm}
   \centering
   \normalsize
   \textbf{MCP} = APIs that AIs can find and use by themselves
@@ -360,11 +445,11 @@
   \begin{columns}[T]
     \begin{column}{0.48\textwidth}
       \centering
-      \normalsize\bfseries
+      \large\bfseries
       \textcolor{conesaOrange}{Using Traditional API}
 
-      \vspace{0.3cm}
-      \small
+      \vspace{0.5cm}
+      \normalsize
 
       \textbf{You must code:}
       \begin{lstlisting}[language=python, basicstyle=\tiny\ttfamily]
@@ -387,11 +472,11 @@ print(f"Temperature: {temp}C")
     \end{column}
     \begin{column}{0.48\textwidth}
       \centering
-      \normalsize\bfseries
+      \large\bfseries
       \textcolor{conesaTeal}{Using MCP}
 
-      \vspace{0.3cm}
-      \small
+      \vspace{0.5cm}
+      \normalsize
 
       \textbf{MCP Server provides:}
       \begin{lstlisting}[language=python, basicstyle=\tiny\ttfamily]
@@ -418,78 +503,236 @@ print(f"Temperature: {temp}C")
   \end{columns}
 \end{frame}
 
-\begin{frame}{How LLMs Learn Tool Use}
-  \begin{columns}[T]
-    \begin{column}{0.62\textwidth}
-      \centering
-      \begin{tikzpicture}[
-        stageA/.style={rectangle, rounded corners, draw=conesaTeal, fill=conesaTeal!12, minimum width=5.2cm, minimum height=1.6cm, align=left, inner sep=6pt},
-        stageB/.style={rectangle, rounded corners, draw=conesaOrange, fill=conesaOrange!15, minimum width=5.2cm, minimum height=1.6cm, align=left, inner sep=6pt},
-        stageC/.style={rectangle, rounded corners, draw=conesaYellow, fill=conesaYellow!20, minimum width=5.2cm, minimum height=1.6cm, align=left, inner sep=6pt},
-        connector/.style={-Stealth, ultra thick, draw=conesaLightGray},
-        font=\footnotesize
-      ]
-        \node[stageA] (pre) {\textcolor{conesaTeal}{\textbf{Pretraining}}\\[-0.2em]
-          $\blacktriangleright$ Massive web + code\\
-          $\blacktriangleright$ Predict next tokens\\
-          $\blacktriangleright$ Learn world priors};
-        \node[stageB, below=1.0cm of pre] (sft) {\textcolor{conesaOrange}{\textbf{Instruction Tuning}}\\[-0.2em]
-          $\blacktriangleright$ Prompt--response demos\\
-          $\blacktriangleright$ Tool schemas inline\\
-          $\blacktriangleright$ Structured formats};
-        \node[stageC, below=1.0cm of sft] (rlhf) {\textcolor{conesaOrange}{\textbf{Alignment / RLHF}}\\[-0.2em]
-          $\blacktriangleright$ Rewarded feedback\\
-          $\blacktriangleright$ Safety objectives\\
-          $\blacktriangleright$ Reliable tool calls};
-        \draw[connector] (pre.south) -- (sft.north);
-        \draw[connector] (sft.south) -- (rlhf.north);
-      \end{tikzpicture}
-    \end{column}
-    \begin{column}{0.35\textwidth}
-      \begin{block}{Takeaway}
-        \footnotesize
-        Layered training primes agents for confident, auditable tool calls.
-      \end{block}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-\begin{frame}{ReAct in Action: Example}
+\begin{frame}{MCP Call Flow: How It Works}
   \centering
   \large\bfseries
-  Task: ``What's the weather in Valencia today?''
+  Understanding Client-Server Architecture
+
+  \vspace{0.5cm}
+
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \centering
+      \normalsize\bfseries
+      \textcolor{conesaTeal}{The Players}
+
+      \vspace{0.3cm}
+      \normalsize
+
+      \textbf{Client:} The AI agent
+
+      \textbf{Server:} Your MCP tool provider
+
+      \vspace{0.3cm}
+      \small
+      Client asks, server does the work
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \centering
+      \normalsize\bfseries
+      \textcolor{conesaOrange}{The Call Flow}
+
+      \vspace{0.3cm}
+      \normalsize
+      \raggedright
+
+      \textbf{1.} Client connects → \texttt{list\_tools}\\
+      \small (gets tool schemas)
+
+      \vspace{0.2cm}
+      \normalsize
+      \textbf{2.} AI chooses tool + arguments
+
+      \vspace{0.2cm}
+      \textbf{3.} Client → \texttt{call\_tool(name, args)}
+
+      \vspace{0.2cm}
+      \textbf{4.} Server runs code → returns data\\
+      \small (hits APIs, DB, shell, etc.)
+    \end{column}
+  \end{columns}
+
+  \vspace{0.5cm}
+  \centering
+  \normalsize
+  \textbf{Key:} AI never sees your implementation, just the interface
+\end{frame}
+
+\begin{frame}{Why MCP Is More Secure}
+  \centering
+  \large\bfseries
+  Security Through Controlled Access
+
+  \vspace{0.5cm}
+
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \centering
+      \normalsize\bfseries
+      \textcolor{conesaOrange}{The Risk}
+
+      \vspace{0.3cm}
+      \normalsize
+      \raggedright
+
+      \textbf{Model has no direct power}\\
+      \small Only calls tools you expose
+
+      \vspace{0.2cm}
+      \normalsize
+      \textbf{But if model sends personal data:}\\
+      \small • Client forwards it\\
+      • Server processes it\\
+      • Data could leak out
+
+      \vspace{0.2cm}
+      \normalsize
+      \textcolor{red}{Warning: Privacy risk once data leaves}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \centering
+      \normalsize\bfseries
+      \textcolor{conesaTeal}{MCP Protection}
+
+      \vspace{0.3cm}
+      \normalsize
+      \raggedright
+
+      \textbf{1. Schema constraints}\\
+      \small Strict field validation
+
+      \vspace{0.2cm}
+      \normalsize
+      \textbf{2. Scoped servers}\\
+      \small Only run what you trust
+
+      \vspace{0.2cm}
+      \normalsize
+      \textbf{3. Local by default}\\
+      \small Data stays on your machine
+
+      \vspace{0.2cm}
+      \normalsize
+      \textbf{4. Auditing/logging}\\
+      \small Track all tool calls
+    \end{column}
+  \end{columns}
+
+  \vspace{0.5cm}
+  \centering
+  \normalsize
+  \textbf{Bottom line:} You control what tools exist and where data flows
+\end{frame}
+
+\begin{frame}{How LLMs Learn Tool Use\supercite{qin2023tool}}
+  \centering
+  \begin{tikzpicture}[
+    stageA/.style={rectangle, rounded corners, draw=conesaTeal, fill=conesaTeal!12, minimum width=3.8cm, minimum height=2.8cm, align=left, inner sep=8pt},
+    stageB/.style={rectangle, rounded corners, draw=conesaOrange, fill=conesaOrange!15, minimum width=3.8cm, minimum height=2.8cm, align=left, inner sep=8pt},
+    stageC/.style={rectangle, rounded corners, draw=conesaYellow, fill=conesaYellow!20, minimum width=3.8cm, minimum height=2.8cm, align=left, inner sep=8pt},
+    connector/.style={-Stealth, ultra thick, draw=conesaLightGray},
+    font=\footnotesize
+  ]
+    \node[stageA] (pre) {\textcolor{conesaTeal}{\textbf{Pretraining}}\\[0.2em]
+      $\blacktriangleright$ Massive web\\
+      \hspace{0.5em}+ code\\
+      $\blacktriangleright$ Predict next\\
+      \hspace{0.5em}tokens\\
+      $\blacktriangleright$ Learn world\\
+      \hspace{0.5em}priors};
+    \node[stageB, right=1.2cm of pre] (sft) {\textcolor{conesaOrange}{\textbf{Instruction Tuning}}\\[0.2em]
+      $\blacktriangleright$ Prompt--response\\
+      \hspace{0.5em}demos\\
+      $\blacktriangleright$ Tool schemas\\
+      \hspace{0.5em}inline\\
+      $\blacktriangleright$ Structured\\
+      \hspace{0.5em}formats};
+    \node[stageC, right=1.2cm of sft] (rlhf) {\textcolor{conesaOrange}{\textbf{Alignment / RLHF}}\\[0.2em]
+      $\blacktriangleright$ Rewarded\\
+      \hspace{0.5em}feedback\\
+      $\blacktriangleright$ Safety\\
+      \hspace{0.5em}objectives\\
+      $\blacktriangleright$ Reliable tool\\
+      \hspace{0.5em}calls};
+    \draw[connector] (pre.east) -- (sft.west);
+    \draw[connector] (sft.east) -- (rlhf.west);
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{ReAct in Action: RNA-Seq Workflow}
+  \centering
+  \large\bfseries
+  Task: ``Deliver QC-ready RNA-seq counts for today's batch.''
 
   \vspace{0.5cm}
   \normalsize
 
   \begin{enumerate}
-    \item \textcolor{conesaTeal}{\textbf{Thought}}: ``Need weather data, use MCP tool.''
-    
+    \item \textcolor{conesaTeal}{\textbf{Thought}}: ``Need QC thresholds before planning.''
+
     \vspace{0.3cm}
-    
-    \item \textcolor{conesaOrange}{\textbf{Action}}: \texttt{get\_weather(location="Valencia, Spain")}
-    
+
+    \item \textcolor{conesaOrange}{\textbf{Action}}: \texttt{read\_file("GEMINI.md")}
+
     \vspace{0.3cm}
-    
-    \item \textcolor{gray}{\textbf{Observation}}: ``Temperature: 24°C, Sunny''
-    
+
+    \item \textcolor{conesaGray}{\textbf{Observation}}: ``Standards: reads $>$10M, FRiP $>$0.2.''
+
     \vspace{0.3cm}
-    
-    \item \textcolor{conesaTeal}{\textbf{Thought}}: ``Got data, formulate response.''
-    
+
+    \item \textcolor{conesaTeal}{\textbf{Thought}}: ``Plan pipeline using those gates.''
+
     \vspace{0.3cm}
-    
-    \item \textcolor{conesaOrange}{\textbf{Action}}: Return response to user
+
+    \item \textcolor{conesaOrange}{\textbf{Action}}: \texttt{launch\_rnaseq\_qc(batch="2024-10-01", min\_reads=1e7)}
   \end{enumerate}
 
   \vspace{0.5cm}
   \centering
-  \textbf{Result:} ``Valencia today is sunny, 24°C.''
+  \textbf{Result:} counts.tsv + qc\_report.html ready for review.
+\end{frame}
+
+\begin{frame}{Agent Stack for Scientific Workflows}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \centering
+      \large\bfseries
+      \textcolor{conesaTeal}{Agent Ingredients}
+
+      \vspace{0.3cm}
+      \normalsize
+
+      \begin{itemize}
+        \item Foundation model reasoning
+        \item ReAct planning loop
+        \item MCP tool catalog
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \centering
+      \large\bfseries
+      \textcolor{conesaOrange}{Human Inputs}
+
+      \vspace{0.3cm}
+      \normalsize
+
+      \begin{itemize}
+        \item GEMINI.md + project context
+        \item Quality gates \& constraints
+        \item Review \& acceptance criteria
+      \end{itemize}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.5cm}
+  \centering
+  \normalsize
+  \textbf{Bridge:} This stack powers the upcoming demos for slides, CVs, and production code.
 \end{frame}
 
 \begin{frame}{Coding Agents}
   \begin{block}{Definition}
-    ReAct loops for planning, writing, testing \& refining code autonomously.
+    ReAct loops for planning, writing, testing \& refining code autonomously\supercite{yao2023react}.
   \end{block}
 
   \vspace{0.5cm}
@@ -498,29 +741,29 @@ print(f"Temperature: {temp}C")
     \begin{column}{0.48\textwidth}
       \centering
       \large\bfseries
-      \textcolor{conesaTeal}{ReAct Cycle}
-
-      \vspace{0.3cm}
-      \normalsize
-
-      \begin{enumerate}
-        \item Think $\rightarrow$ Code
-        \item Test $\rightarrow$ Adjust
-        \item Repeat until done
-      \end{enumerate}
-    \end{column}
-    \begin{column}{0.48\textwidth}
-      \centering
-      \large\bfseries
-      \textcolor{conesaOrange}{Examples}
+      \textcolor{conesaTeal}{Where They Shine}
 
       \vspace{0.3cm}
       \normalsize
 
       \begin{itemize}
-        \item Cursor
-        \item GitHub Copilot
-        \item Gemini CLI
+        \item Automate repetitive QC or plotting
+        \item Scaffold pipelines \& tests
+        \item Keep research notes in sync
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \centering
+      \large\bfseries
+      \textcolor{conesaOrange}{What You Still Own}
+
+      \vspace{0.3cm}
+      \normalsize
+
+      \begin{itemize}
+        \item Set objectives \& constraints
+        \item Provide project context
+        \item Review \& sign off outputs
       \end{itemize}
     \end{column}
   \end{columns}
@@ -528,13 +771,26 @@ print(f"Temperature: {temp}C")
   \vspace{0.5cm}
   \centering
   \normalsize
-  \textbf{How does this loop play out in the lab?}
+  \textbf{Next:} Watch this collaboration build research slides.
+\end{frame}
+
+% Transition to Demo 1
+\begin{frame}[plain]
+  \centering
+  \vspace{2cm}
+  {\Huge\bfseries\textcolor{conesaTeal}{Demo 1}}
+  
+  \vspace{0.8cm}
+  {\Large Coding Agent for Research}
+  
+  \vspace{0.5cm}
+  {\large Generating LaTeX Slides from Research Papers}
 \end{frame}
 
 \begin{frame}{Live Demo: Coding Agent for Research}
   \textbf{Goal}\; Turn the epigenome review into polished slides with a ReAct loop.
 
-  \vspace{0.4cm}
+  \vspace{0.5cm}
   \begin{columns}[T]
     \begin{column}{0.52\textwidth}
       \textbf{Setup}
@@ -561,35 +817,39 @@ print(f"Temperature: {temp}C")
 
 \begin{frame}{Coding Agent Example: RNA-Seq}
   \begin{block}{Scenario}
-    Raw FASTQs $\rightarrow$ polished expression report by morning.
+    Raw FASTQs $\rightarrow$ expression report by morning
   \end{block}
 
   \vspace{0.5cm}
 
   \begin{columns}[T]
     \begin{column}{0.48\textwidth}
-      \small
-      \textcolor{conesaTeal}{ReAct Loop in Practice}
+      \centering
+      \large\bfseries
+      \textcolor{conesaTeal}{ReAct Loop}
 
-      \vspace{0.2cm}
+      \vspace{0.3cm}
+      \normalsize
 
       \begin{enumerate}
-        \item \textbf{Think}: Review sample sheet \& QC goals
-        \item \textbf{Act}: Run FastQC + STAR alignment
-        \item \textbf{Observe}: Check logs, flag weak samples
-        \item \textbf{Deliver}: Counts \& summaries ready
+        \item \textbf{Think}: Review QC goals
+        \item \textbf{Act}: FastQC + STAR
+        \item \textbf{Observe}: Flag weak samples
+        \item \textbf{Deliver}: Counts ready
       \end{enumerate}
     \end{column}
     \begin{column}{0.48\textwidth}
-      \small
+      \centering
+      \large\bfseries
       \textcolor{conesaOrange}{Responsible Use}
 
-      \vspace{0.2cm}
+      \vspace{0.3cm}
+      \normalsize
 
       \begin{itemize}
-        \item Human review of flagged reads
-        \item Track prompts \& tool versions
-        \item Log decisions for audit trail
+        \item Review flagged reads
+        \item Track tool versions
+        \item Log decisions
       \end{itemize}
     \end{column}
   \end{columns}
@@ -599,7 +859,7 @@ print(f"Temperature: {temp}C")
 \section{Context Engineering}
 
 \begin{frame}{What Is Context Engineering?}
-  \begin{block}{Key Insight \cite{lutke2024context}}
+  \begin{block}{Key Insight\supercite{lutke2024context}}
     ``Most agent failures are context failures, not model failures.'' --- Tobi Lütke, Shopify
   \end{block}
 
@@ -609,9 +869,9 @@ print(f"Temperature: {temp}C")
     \begin{column}{0.48\textwidth}
       \centering
       \large\bfseries
-      Core Components
+      \textcolor{conesaTeal}{Core Components}
 
-      \vspace{0.3cm}
+      \vspace{0.5cm}
       \normalsize
       Instructions\\
       Project Context\\
@@ -621,9 +881,9 @@ print(f"Temperature: {temp}C")
     \begin{column}{0.48\textwidth}
       \centering
       \large\bfseries
-      Context = Better AI
+      \textcolor{conesaOrange}{Context = Better AI}
 
-      \vspace{0.3cm}
+      \vspace{0.5cm}
       \normalsize
       Specificity beats vagueness\\
       Examples beat explanations\\
@@ -632,11 +892,184 @@ print(f"Temperature: {temp}C")
   \end{columns}
 \end{frame}
 
+\begin{frame}[fragile]{Guiding AI for Multi-Omics Analysis}
+  \begin{block}{Simple Strategy}
+    Tell AI your \textbf{data type} + \textbf{quality rules} + \textbf{ask for a plan}
+  \end{block}
+
+  \vspace{0.5cm}
+
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \centering
+      \large\bfseries
+      \textcolor{conesaTeal}{RNA-seq Example}
+
+      \vspace{0.5cm}
+      \normalsize
+
+      \begin{lstlisting}[language=bash, basicstyle=\tiny\ttfamily, frame=single, numbers=none]
+QC RNA-seq FASTQs, align to
+GRCh38, generate counts.
+
+Quality: $>$10M reads
+
+Output: counts.tsv
+      \end{lstlisting}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \centering
+      \large\bfseries
+      \textcolor{conesaOrange}{ATAC-seq Example}
+
+      \vspace{0.5cm}
+      \normalsize
+
+      \begin{lstlisting}[language=bash, basicstyle=\tiny\ttfamily, frame=single, numbers=none]
+Process ATAC reads, call peaks
+with MACS2.
+
+Quality: FRiP $>$ 0.2
+
+Output: filtered_peaks.bed
+      \end{lstlisting}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.5cm}
+  \centering
+  \footnotesize
+  \textbf{Key:} Specific data type + QC thresholds + reference to GEMINI.md
+\end{frame}
+
+\begin{frame}[fragile]{Anatomy of a Research GEMINI.md}
+  \begin{lstlisting}[language=bash, basicstyle=\small\ttfamily]
+# Project: Multi-omics Data Analysis
+
+## Data (CRITICAL)
+- IRB: #2024-456 | Data: RNA-seq, ATAC-seq
+
+## Tech
+- STAR (GRCh38), MACS2, RGmatch, Python 3.11
+
+## Domain
+- RNA-seq QC: $>$10M reads | ATAC-seq QC: FRiP $>$ 0.2
+
+## Stats
+- Correlation networks for omics integration | FDR: BH | Seed: 42
+  \end{lstlisting}
+
+  \vspace{0.5cm}
+  \centering
+  \normalsize
+  \textbf{Key Sections:} Privacy $\bullet$ Tech $\bullet$ Domain $\bullet$ Stats
+\end{frame}
+
+\begin{frame}{Context Engineering Best Practices}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \centering
+      \large\bfseries
+      \textcolor{conesaOrange}{DON'T}
+
+      \vspace{0.5cm}
+      \normalsize
+      ``Write good code''\\
+      \vspace{0.3cm}
+      12 pages of docs\\
+      \vspace{0.3cm}
+      Outdated specs
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \centering
+      \large\bfseries
+      \textcolor{conesaTeal}{DO}
+
+      \vspace{0.5cm}
+      \normalsize
+      Functions $<$ 50 lines\\
+      \vspace{0.3cm}
+      Core concepts only\\
+      \vspace{0.3cm}
+      Living document
+    \end{column}
+  \end{columns}
+
+  \vspace{0.5cm}
+  \centering
+  \normalsize
+  \textbf{Remember:} Examples $>$ Explanations
+\end{frame}
+
+% Transition to Demo 2
+\begin{frame}[plain]
+  \centering
+  \vspace{2cm}
+  {\Huge\bfseries\textcolor{conesaTeal}{Demo 2}}
+  
+  \vspace{0.8cm}
+  {\Large Context Engineering in Action}
+  
+  \vspace{0.5cm}
+  {\large Building a LaTeX CV from Web Forms}
+\end{frame}
+
+\begin{frame}{Demo 2: Context Engineering for LaTeX CV Generation}
+  \begin{block}{The Workflow}
+    Web form $\rightarrow$ Structured prompt $\rightarrow$ AI creates CV
+  \end{block}
+
+  \vspace{0.5cm}
+
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \centering
+      \large\bfseries
+      \textcolor{conesaTeal}{Your Task}
+
+      \vspace{0.5cm}
+      \normalsize
+
+      \begin{enumerate}
+        \item Open \texttt{examples/demo2/index.html}
+        \item Fill in the form
+        \item See what context AI needs
+      \end{enumerate}
+
+      \vspace{0.3cm}
+      \small
+      \textit{Understanding context = Better AI output}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \centering
+      \large\bfseries
+      \textcolor{conesaOrange}{Key Insight}
+
+      \vspace{0.5cm}
+      \normalsize
+
+      The form shows you \textbf{exactly} what information AI agents need:
+
+      \vspace{0.3cm}
+      \begin{itemize}
+        \item Personal details
+        \item Education \& experience
+        \item Skills \& projects
+        \item Formatting preferences
+      \end{itemize}
+
+      \vspace{0.3cm}
+      \small
+      Better input = Better CV
+    \end{column}
+  \end{columns}
+\end{frame}
+
 % Section: Responsible AI & Production Best Practices
 \section{Responsible AI \& Production Best Practices}
 
 \begin{frame}{What Is Vibe Coding?}
-  \begin{block}{Definition \cite{karpathy2025vibe}}
+  \begin{block}{Definition\supercite{karpathy2025vibe}}
     ``A new coding style where you embrace exponentials and forget the code even exists.'' --- Andrej Karpathy
   \end{block}
 
@@ -644,89 +1077,84 @@ print(f"Temperature: {temp}C")
 
   \begin{columns}[T]
     \begin{column}{0.48\textwidth}
-      \begin{alertblock}{Vibe Coding}
-        \centering
-        Prompt $\rightarrow$ Generate $\rightarrow$ Run
+      \centering
+      \large\bfseries
+      \textcolor{conesaOrange}{Vibe Coding}
 
-        \vspace{0.3cm}
-        \textcolor{conesaOrange}{\textbf{No Review!}}
-      \end{alertblock}
+      \vspace{0.3cm}
+      \normalsize
+
+      Prompt $\rightarrow$ Generate $\rightarrow$ Run
+
+      \vspace{0.3cm}
+      \textbf{No Review!}
     \end{column}
     \begin{column}{0.48\textwidth}
-      \begin{block}{Responsible AI}
-        \centering
-        Prompt $\rightarrow$ Generate $\rightarrow$ \textbf{\textcolor{conesaTeal}{REVIEW}}
+      \centering
+      \large\bfseries
+      \textcolor{conesaTeal}{Responsible AI}
 
-        \vspace{0.3cm}
-        Test $\rightarrow$ Deploy
-      \end{block}
+      \vspace{0.3cm}
+      \normalsize
+
+      Prompt $\rightarrow$ Generate $\rightarrow$ \textbf{REVIEW}
+
+      \vspace{0.3cm}
+      Test $\rightarrow$ Deploy
     \end{column}
   \end{columns}
 \end{frame}
 
 \begin{frame}{The Research Integrity Framework}
-  \begin{table}
-    \centering
-    \normalsize
-    \begin{tabular}{|l|c|c|}
-      \hline
-      \rowcolor{conesaLightGray}
-      \textbf{Code Type} & \textbf{Examples} & \textbf{AI Usage} \\
-      \hline
-      \cellcolor{conesaTeal!20}\textbf{Exploration} &
-      Visualizations, Conversions &
-      \cellcolor{conesaTeal!20}\checkmark Vibe OK \\
-      \hline
-      \cellcolor{conesaYellow!20}\textbf{Production} &
-      Pipelines, Tools &
-      \cellcolor{conesaYellow!20}AI + Review \\
-      \hline
-      \cellcolor{conesaOrange!20}\textbf{Critical} &
-      Statistics, Publications &
-      \cellcolor{conesaOrange!20}\texttimes{} Traditional \\
-      \hline
-    \end{tabular}
-  \end{table}
+  \centering
+  \vspace{0.5cm}
+  
+  \begin{tabular}{|l|c|c|}
+    \hline
+    \rowcolor{conesaLightGray}
+    \textbf{Code Type} & \textbf{Examples} & \textbf{AI Usage} \\
+    \hline
+    \cellcolor{conesaTeal!20}\textbf{Exploration} &
+    Visualizations, Conversions &
+    \cellcolor{conesaTeal!20}\checkmark Vibe OK \\
+    \hline
+    \cellcolor{conesaYellow!20}\textbf{Production} &
+    Pipelines, Tools &
+    \cellcolor{conesaYellow!20}AI + Review \\
+    \hline
+    \cellcolor{conesaOrange!20}\textbf{Critical} &
+    Statistics, Publications &
+    \cellcolor{conesaOrange!20}\texttimes{} Traditional \\
+    \hline
+  \end{tabular}
 \end{frame}
 
 \begin{frame}{Real Risks for Researchers}
   \begin{columns}[T]
     \begin{column}{0.48\textwidth}
-      \begin{alertblock}{Security \cite{security2025ai}}
-        \centering
-
-        {\LARGE\bfseries\textcolor{conesaOrange}{40\%}}
-
-        \vspace{0.3cm}
-        \normalsize
-        \textbf{of AI code has flaws}
-
-        \vspace{0.3cm}
-        Prompt injection\\
-        Hardcoded credentials
-      \end{alertblock}
+      \textbf{Security}\supercite{security2025ai}
+      \begin{itemize}
+        \item 40\% of AI code has flaws
+        \item Prompt injection
+        \item Hardcoded credentials
+      \end{itemize}
+      
+      \vspace{0.5cm}
+      
+      \textbf{Reproducibility}
+      \begin{itemize}
+        \item Non-deterministic
+        \item Can't verify
+        \item Journals need disclosure
+      \end{itemize}
     \end{column}
     \begin{column}{0.48\textwidth}
-      \begin{alertblock}{Reproducibility}
-        \centering
-
-        \large\bfseries
-        Non-deterministic
-
-        \vspace{0.3cm}
-        \normalsize
-        Can't verify\\
-        Journals need disclosure
-      \end{alertblock}
+      \textbf{Surprising Finding}\supercite{metr2025study}
+      \begin{itemize}
+        \item Experienced devs: 19\% slower with AI on complex tasks
+      \end{itemize}
     \end{column}
   \end{columns}
-
-  \vspace{0.5cm}
-
-  \begin{block}{Surprising Finding \cite{metr2025study}}
-    \centering
-    Experienced devs: {\large\bfseries\textcolor{conesaOrange}{19\% slower}} with AI on complex tasks
-  \end{block}
 \end{frame}
 
 \begin{frame}{Best Practices Decision Tree}
@@ -795,162 +1223,6 @@ print(f"Temperature: {temp}C")
   \end{enumerate}
 \end{frame}
 
-\begin{frame}[fragile]{Guiding AI for Multi-Omics Analysis}
-  \begin{block}{Simple Strategy}
-    Tell AI your \textbf{data type} + \textbf{quality rules} + \textbf{ask for a plan}
-  \end{block}
-
-  \vspace{0.3cm}
-
-  \begin{columns}[T]
-    \begin{column}{0.48\textwidth}
-      \centering
-      \small\bfseries
-      \textcolor{conesaTeal}{RNA-seq Example}
-
-      \vspace{0.2cm}
-      \scriptsize
-
-      \begin{lstlisting}[language=bash, basicstyle=\tiny\ttfamily, frame=single, numbers=none]
-Make a step-by-step plan to:
-1. QC my RNA-seq FASTQ files
-2. Align with STAR (GRCh38)
-3. Generate count matrix
-4. Flag samples with $<$10M reads
-5. Output: counts.tsv
-
-Follow project standards in
-GEMINI.md
-      \end{lstlisting}
-    \end{column}
-    \begin{column}{0.48\textwidth}
-      \centering
-      \small\bfseries
-      \textcolor{conesaOrange}{ATAC-seq Example}
-
-      \vspace{0.2cm}
-      \scriptsize
-
-      \begin{lstlisting}[language=bash, basicstyle=\tiny\ttfamily, frame=single, numbers=none]
-Make a step-by-step plan to:
-1. Process ATAC-seq reads
-2. Call peaks with MACS2
-3. Calculate FRiP scores
-4. Filter peaks: FRiP $>$ 0.2
-5. Output: filtered_peaks.bed
-
-Follow project standards in
-GEMINI.md
-      \end{lstlisting}
-    \end{column}
-  \end{columns}
-
-  \vspace{0.3cm}
-  \centering
-  \footnotesize
-  \textbf{Key:} Specific data type + QC thresholds + step-by-step request
-\end{frame}
-
-\begin{frame}[fragile]{Anatomy of a Research GEMINI.md}
-  \begin{lstlisting}[language=bash, basicstyle=\small\ttfamily]
-# Project: Multi-omics Data Analysis
-
-## Data (CRITICAL)
-- IRB: #2024-456 | Data: RNA-seq, ATAC-seq
-
-## Tech
-- STAR (GRCh38), MACS2, RGmatch, Python 3.11
-
-## Domain
-- RNA-seq QC: $>$10M reads | ATAC-seq QC: FRiP $>$ 0.2
-
-## Stats
-- Correlation networks for omics integration | FDR: BH | Seed: 42
-  \end{lstlisting}
-
-  \vspace{0.3cm}
-  \centering
-  \normalsize
-  \textbf{Key Sections:} Privacy $\bullet$ Tech $\bullet$ Domain $\bullet$ Stats
-\end{frame}
-
-\begin{frame}{Context Engineering Best Practices}
-  \begin{columns}[T]
-    \begin{column}{0.48\textwidth}
-      \centering
-      \large\bfseries
-      \textcolor{conesaOrange}{DON'T}
-
-      \vspace{0.3cm}
-      \normalsize
-      ``Write good code''\\
-      \vspace{0.3cm}
-      12 pages of docs\\
-      \vspace{0.3cm}
-      Outdated specs
-    \end{column}
-    \begin{column}{0.48\textwidth}
-      \centering
-      \large\bfseries
-      \textcolor{conesaTeal}{DO}
-
-      \vspace{0.3cm}
-      \normalsize
-      Functions $<$ 50 lines\\
-      \vspace{0.3cm}
-      Core concepts only\\
-      \vspace{0.3cm}
-      Living document
-    \end{column}
-  \end{columns}
-
-  \vspace{0.8cm}
-  \centering
-  \normalsize
-  \textbf{Remember:} Examples $>$ Explanations
-\end{frame}
-
-\begin{frame}{Demo 2: Context Engineering for LaTeX CV Generation}
-  \begin{block}{The Workflow}
-    Web form $\rightarrow$ Structured prompt $\rightarrow$ AI creates CV
-  \end{block}
-
-  \vspace{0.5cm}
-
-  \begin{columns}[T]
-    \begin{column}{0.48\textwidth}
-      \centering
-      \large\bfseries
-      \textcolor{conesaTeal}{Steps}
-
-      \vspace{0.3cm}
-      \normalsize
-
-      \begin{enumerate}
-        \item Gather information
-        \item Structure for AI
-        \item Generate output
-      \end{enumerate}
-    \end{column}
-    \begin{column}{0.48\textwidth}
-      \centering
-      \large\bfseries
-      \textcolor{conesaOrange}{Key Insight}
-
-      \vspace{0.3cm}
-      \normalsize
-
-      Better input\\
-      $\Downarrow$\\
-      Better output
-
-      \vspace{0.3cm}
-      \small
-      See \texttt{examples/demo2/index.html}
-    \end{column}
-  \end{columns}
-\end{frame}
-
 \begin{frame}{Version Control: Essential for Agent Coding}
   \begin{block}{Why GitHub Matters}
     AI agents iterate fast, mistakes happen --- \textbf{version control is critical} for tracking, rollback, and collaboration.
@@ -990,12 +1262,9 @@ GEMINI.md
   \end{columns}
 \end{frame}
 
-% Section: Best Practices and Resources
-\section{Best Practices and Resources}
-
 \begin{frame}{CI/CD \& Unit Testing: Quality Automation}
   \begin{block}{What is CI/CD?}
-    \textbf{C}ontinuous \textbf{I}ntegration / \textbf{C}ontinuous \textbf{D}eployment --- automatically test and deploy AI-generated code on every commit.
+    Auto-test and deploy AI code on every commit.
   \end{block}
 
   \vspace{0.5cm}
@@ -1012,7 +1281,6 @@ GEMINI.md
       \begin{itemize}
         \item Fast feedback
         \item Catch regressions
-        \item Document behavior
       \end{itemize}
 
       \vspace{0.2cm}
@@ -1041,6 +1309,19 @@ GEMINI.md
   \end{columns}
 \end{frame}
 
+% Transition to Demo 3
+\begin{frame}[plain]
+  \centering
+  \vspace{2cm}
+  {\Huge\bfseries\textcolor{conesaTeal}{Demo 3}}
+  
+  \vspace{0.8cm}
+  {\Large Production-Ready AI Code}
+  
+  \vspace{0.5cm}
+  {\large React Website with Unit Testing \& CI/CD}
+\end{frame}
+
 \begin{frame}[fragile]{Demo 3: Unit Testing \& CI/CD in Practice}
   \centering
   \large\bfseries
@@ -1052,7 +1333,7 @@ GEMINI.md
   \begin{columns}[T]
     \begin{column}{0.48\textwidth}
       \centering
-      \normalsize\bfseries
+      \large\bfseries
       \textcolor{conesaTeal}{What's Tested}
 
       \vspace{0.3cm}
@@ -1071,7 +1352,7 @@ GEMINI.md
     \end{column}
     \begin{column}{0.48\textwidth}
       \centering
-      \normalsize\bfseries
+      \large\bfseries
       \textcolor{conesaOrange}{CI/CD Workflow}
 
       \vspace{0.3cm}
@@ -1130,112 +1411,79 @@ GEMINI.md
   \centering
 \end{frame}
 
-\begin{frame}{Resources}
-  \centering
-  \large\bfseries
-
-  Learn More
-
-  \vspace{0.5cm}
-  \normalsize
-
-  Gemini CLI Documentation\\
-  Pandoc Manual\\
-  Software Carpentry \cite{carpentry2024software}
-
-  \vspace{0.8cm}
-  \large\bfseries
-
-  Workshop Materials
-
-  \vspace{0.5cm}
-  \normalsize
-  Slides + Code on GitHub\\
-  Office Hours: Tuesdays 2-3pm
-
-  \vspace{0.8cm}
-  \large\bfseries
-
-  Thank you!
-
-  \vspace{0.3cm}
-  \normalsize
-  Questions? instructor@university.edu
-\end{frame}
-
 % References slide
 \begin{frame}[allowframebreaks]{References}
   \printbibliography
 \end{frame}
 
 % Backup slides
-\appendix
-\section{Appendix}
+% \appendix
+% \section{Appendix}
 
-\begin{frame}[fragile]{Appendix: Security Vulnerability Example}
-  \begin{lstlisting}[language=python, basicstyle=\tiny\ttfamily]
-# AI-generated code with vulnerabilities
-def process_data(filename):
-    # No error handling!
-    f = open(filename)
-    data = f.read()
+% \begin{frame}[fragile]{Appendix: Security Vulnerability Example}
+%   \begin{lstlisting}[language=python, basicstyle=\tiny\ttfamily]
+% # AI-generated code with vulnerabilities
+% def process_data(filename):
+%     # No error handling!
+%     f = open(filename)
+%     data = f.read()
+% 
+%     # SQL injection vulnerability
+%     query = "SELECT * FROM users WHERE name = '" + data + "'"
+% 
+%     # Hardcoded credential
+%     api_key = "sk-1234567890abcdef"
+% 
+%     return query
+% 
+% # Better version after review
+% def process_data_safe(filename):
+%     try:
+%         with open(filename, 'r') as f:
+%             data = f.read()
+%     except FileNotFoundError:
+%         return None
+% 
+%     # Use parameterized query
+%     query = "SELECT * FROM users WHERE name = ?"
+%     params = (data,)
+% 
+%     # Use environment variable
+%     api_key = os.environ.get('API_KEY')
+% 
+%     return query, params
+%   \end{lstlisting}
+% \end{frame}
 
-    # SQL injection vulnerability
-    query = "SELECT * FROM users WHERE name = '" + data + "'"
-
-    # Hardcoded credential
-    api_key = "sk-1234567890abcdef"
-
-    return query
-
-# Better version after review
-def process_data_safe(filename):
-    try:
-        with open(filename, 'r') as f:
-            data = f.read()
-    except FileNotFoundError:
-        return None
-
-    # Use parameterized query
-    query = "SELECT * FROM users WHERE name = ?"
-    params = (data,)
-
-    # Use environment variable
-    api_key = os.environ.get('API_KEY')
-
-    return query, params
-  \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]{Appendix: Sample GEMINI.md for Research}
-  \begin{lstlisting}[language=bash, basicstyle=\tiny\ttfamily]
-# Neuroimaging Analysis Project
-
-## Compliance Requirements
-- IRB Protocol: #2024-789
-- HIPAA compliant data handling
-- No cloud storage allowed
-- De-identified data only
-
-## Analysis Standards
-- Software: FSL 6.0.5, SPM12, Python 3.10+
-- Multiple comparisons: FWE correction p$<$0.05
-- Effect sizes: Cohen's d required
-- Motion threshold: FD $>$ 0.5mm exclusion
-
-## File Structure
-data/           # Raw DICOM files (never commit)
-derivatives/    # Preprocessed data
-scripts/        # Analysis code
-results/        # Statistical maps
-logs/           # Processing logs
-
-## Quality Control
-- Visual inspection of all registrations
-- Motion parameters $<$ 3mm translation, 3deg rotation
-- tSNR $>$ 40 for functional data
-- Document all exclusions with reasons
-  \end{lstlisting}
-\end{frame}
+% \begin{frame}[fragile]{Appendix: Sample GEMINI.md for Research}
+%   \begin{lstlisting}[language=bash, basicstyle=\tiny\ttfamily]
+% # Neuroimaging Analysis Project
+% 
+% ## Compliance Requirements
+% - IRB Protocol: #2024-789
+% - HIPAA compliant data handling
+% - No cloud storage allowed
+% - De-identified data only
+% 
+% ## Analysis Standards
+% - Software: FSL 6.0.5, SPM12, Python 3.10+
+% - Multiple comparisons: FWE correction p$<$0.05
+% - Effect sizes: Cohen's d required
+% - Motion threshold: FD $>$ 0.5mm exclusion
+% 
+% ## File Structure
+% data/           # Raw DICOM files (never commit)
+% derivatives/    # Preprocessed data
+% scripts/        # Analysis code
+% results/        # Statistical maps
+% logs/           # Processing logs
+% 
+% ## Quality Control
+% - Visual inspection of all registrations
+% - Motion parameters $<$ 3mm translation, 3deg rotation
+% - tSNR $>$ 40 for functional data
+% - Document all exclusions with reasons
+%   \end{lstlisting}
+% \end{frame}
 
 \end{document}
