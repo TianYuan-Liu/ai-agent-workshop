@@ -41,9 +41,8 @@ jobs:
 
       - name: Build production bundle
         run: npm run build
-        env:
-          # For GitHub Pages, set base to repo name if not using custom domain
-          # VITE_BASE_URL: /${{ github.event.repository.name }}/
+        # For GitHub Pages, set base to repo name if not using custom domain
+        # VITE_BASE_URL: /${{ github.event.repository.name }}/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

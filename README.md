@@ -22,8 +22,8 @@ The document adds `src/assets/` to the graphics path, so keep shared media in th
 
 ## Demo Overview
 1. `examples/demo1` – Prompt + slide generation using the custom Conesa Group Beamer theme
-2. `examples/demo2` – Static HTML prompt generator for LaTeX CVs
-3. `examples/demo3` – React + Tailwind portfolio with full CI/CD (GitHub Actions configs live in `.github/workflows/`)
+2. `examples/demo2` – Static HTML prompt generator for LaTeX CVs (Live: https://tianyuan-liu.github.io/ai-agent-workshop/examples/demo2/)
+3. `examples/demo3` – React + Tailwind portfolio with full CI/CD (GitHub Actions configs live in `.github/workflows/`) (Live: https://tianyuan-liu.github.io/ai-agent-workshop/)
 
 Follow each demo's README for local setup and deployment guidance. CI workflows assume commands run from `examples/demo3` and will lint, test, build, and publish to GitHub Pages.
 
