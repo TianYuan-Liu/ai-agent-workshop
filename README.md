@@ -28,8 +28,8 @@ Demonstrates prompt engineering and slide generation using the custom Conesa Gro
 
 ### Demo 2: LaTeX CV Generator
 **Location:** `examples/demo2`  
-**Live Demo:** https://tianyuan-liu.github.io/ai-agent-workshop/examples/demo2/  
-Static HTML prompt generator for creating LaTeX CVs with AI assistance.
+**Live Demo:** 
+Static HTML prompt generator for creating LaTeX CVs with AI assistance that located in `examples/demo2/index.html`.
 
 ### Demo 3: React Portfolio with CI/CD
 **Location:** `examples/demo3`  

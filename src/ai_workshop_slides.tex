@@ -787,6 +787,28 @@ print(f"Temperature: {temp}C")
   {\large Generating LaTeX Slides from Research Papers}
 \end{frame}
 
+\begin{frame}{Scenario: Journal Club Presentation}
+  \begin{block}{The Situation}
+    It's 10 PM. You have a journal club presentation tomorrow morning at 9 AM.
+  \end{block}
+
+  \vspace{0.3cm}
+  \begin{itemize}
+    \item[\checkmark] You've finished reading the paper
+    \item[$\times$] You have \textbf{no time} to create slides
+    \item[$\times$] You're exhausted and need sleep
+  \end{itemize}
+
+  \vspace{0.5cm}
+  \begin{center}
+    \textcolor{conesaTeal}{\textbf{Solution: Let an AI agent create the slides for you!}}
+  \end{center}
+
+  \vspace{0.3cm}
+  \small
+  The agent can read the paper, extract key points, and generate a professional presentation while you rest.
+\end{frame}
+
 \begin{frame}{Live Demo: Coding Agent for Research}
   \textbf{Goal}\; Turn the epigenome review into polished slides with a ReAct loop.
 
@@ -974,12 +996,31 @@ Output: filtered_peaks.bed
   {\large Building a LaTeX CV from Web Forms}
 \end{frame}
 
+\begin{frame}{Scenario: Academic CV Maintenance}
+  \begin{block}{The Challenge}
+    You need a professional CV for job applications. Updating it is tedious.
+  \end{block}
+
+  \vspace{0.4cm}
+  \textbf{The Pain Points:}
+  \begin{itemize}
+    \item[$\times$] Manually adding new publications, talks, awards
+    \item[$\times$] Maintaining LaTeX formatting consistency
+    \item[$\times$] Different formats for different positions
+  \end{itemize}
+
+  \vspace{0.5cm}
+  \begin{center}
+    \textcolor{conesaTeal}{\textbf{What info should you give an AI agent to automate this?}}
+  \end{center}
+\end{frame}
+
 \begin{frame}{Demo 2: Context Engineering for LaTeX CV Generation}
   \begin{block}{The Workflow}
     Web form $\rightarrow$ Structured prompt $\rightarrow$ AI creates CV
   \end{block}
 
-  \vspace{0.5cm}
+  \vspace{0.3cm}
 
   \begin{columns}[T]
     \begin{column}{0.48\textwidth}
@@ -987,40 +1028,30 @@ Output: filtered_peaks.bed
       \large\bfseries
       \textcolor{conesaTeal}{Your Task}
 
-      \vspace{0.5cm}
+      \vspace{0.3cm}
       \normalsize
 
       \begin{enumerate}
         \item Open \texttt{examples/demo2/index.html}
         \item Fill in the form
-        \item See what context AI needs
       \end{enumerate}
-
-      \vspace{0.3cm}
-      \small
-      \textit{Understanding context = Better AI output}
     \end{column}
     \begin{column}{0.48\textwidth}
       \centering
       \large\bfseries
       \textcolor{conesaOrange}{Key Insight}
 
-      \vspace{0.5cm}
+      \vspace{0.3cm}
       \normalsize
 
-      The form shows you \textbf{exactly} what information AI agents need:
+      Form shows what AI needs:
 
-      \vspace{0.3cm}
+      \vspace{0.2cm}
       \begin{itemize}
         \item Personal details
         \item Education \& experience
         \item Skills \& projects
-        \item Formatting preferences
       \end{itemize}
-
-      \vspace{0.3cm}
-      \small
-      Better input = Better CV
     \end{column}
   \end{columns}
 \end{frame}
@@ -1280,6 +1311,24 @@ Output: filtered_peaks.bed
   
   \vspace{0.5cm}
   {\large React Website with Unit Testing \& CI/CD}
+\end{frame}
+
+\begin{frame}{Scenario: From Development to Production}
+  \begin{block}{The Challenge}
+    AI agents build bioinformatics tools fast. But how do you deploy them \textbf{safely} to production?
+  \end{block}
+
+  \vspace{0.4cm}
+  \begin{itemize}
+    \item[?] How to catch bugs before users do?
+    \item[?] How to ensure reliability with new data?
+    \item[?] What are the best practices?
+  \end{itemize}
+
+  \vspace{0.5cm}
+  \begin{center}
+    \textcolor{conesaTeal}{\textbf{Answer:} Unit testing + CI/CD pipelines}
+  \end{center}
 \end{frame}
 
 \begin{frame}[fragile]{Demo 3: Unit Testing \& CI/CD in Practice}
