@@ -815,46 +815,6 @@ print(f"Temperature: {temp}C")
   \end{alertblock}
 \end{frame}
 
-\begin{frame}{Coding Agent Example: RNA-Seq}
-  \begin{block}{Scenario}
-    Raw FASTQs $\rightarrow$ expression report by morning
-  \end{block}
-
-  \vspace{0.5cm}
-
-  \begin{columns}[T]
-    \begin{column}{0.48\textwidth}
-      \centering
-      \large\bfseries
-      \textcolor{conesaTeal}{ReAct Loop}
-
-      \vspace{0.3cm}
-      \normalsize
-
-      \begin{enumerate}
-        \item \textbf{Think}: Review QC goals
-        \item \textbf{Act}: FastQC + STAR
-        \item \textbf{Observe}: Flag weak samples
-        \item \textbf{Deliver}: Counts ready
-      \end{enumerate}
-    \end{column}
-    \begin{column}{0.48\textwidth}
-      \centering
-      \large\bfseries
-      \textcolor{conesaOrange}{Responsible Use}
-
-      \vspace{0.3cm}
-      \normalsize
-
-      \begin{itemize}
-        \item Review flagged reads
-        \item Track tool versions
-        \item Log decisions
-      \end{itemize}
-    \end{column}
-  \end{columns}
-\end{frame}
-
 % Section: Context Engineering
 \section{Context Engineering}
 
