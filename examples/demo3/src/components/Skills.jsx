@@ -1,5 +1,6 @@
 import { Code, Wrench, BarChart3, Server } from 'lucide-react';
 import { cvData } from '../data/cvData';
+import ScrollReveal from './ScrollReveal';
 
 export default function Skills() {
   const { skills } = cvData;
@@ -9,55 +10,66 @@ export default function Skills() {
       title: 'Programming Languages',
       icon: Code,
       items: skills.programming,
-      color: 'primary'
+      gradient: 'from-blue-400 to-primary-600',
+      iconColor: 'text-blue-600'
     },
     {
       title: 'Technologies & Tools',
       icon: Wrench,
       items: skills.technologies,
-      color: 'primary'
+      gradient: 'from-primary-400 to-primary-600',
+      iconColor: 'text-primary-600'
     },
     {
       title: 'Data Analysis & Methods',
       icon: BarChart3,
       items: skills.dataAnalysis,
-      color: 'primary'
+      gradient: 'from-accent-400 to-accent-600',
+      iconColor: 'text-accent-600'
     },
     {
       title: 'High-Performance Computing',
       icon: Server,
       items: skills.hpc,
-      color: 'primary'
+      gradient: 'from-purple-400 to-purple-600',
+      iconColor: 'text-purple-600'
     }
   ];
 
   return (
-    <section id="skills" className="section-container bg-gray-100">
-      <h2 className="section-title">Technical Skills</h2>
+    <section id="skills" className="section-container gradient-bg rounded-3xl">
+      <ScrollReveal>
+        <h2 className="section-title text-center">Technical Skills</h2>
+      </ScrollReveal>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-2 gap-8">
         {skillCategories.map((category, index) => {
           const Icon = category.icon;
           return (
-            <div key={index} className="card">
-              <div className="flex items-center gap-2 mb-4">
-                <Icon className="h-6 w-6 text-primary-700" />
-                <h3 className="text-xl font-semibold text-gray-900">
-                  {category.title}
-                </h3>
-              </div>
+            <ScrollReveal key={index} delay={index * 150}>
+              <div className="group card-glass hover-glow hover:scale-[1.02] transition-all duration-500 h-full">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className={`p-2 bg-gradient-to-r ${category.gradient} rounded-lg group-hover:scale-110 transition-transform duration-300`}>
+                    <Icon className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold gradient-text">
+                    {category.title}
+                  </h3>
+                </div>
 
-              <div className="flex flex-wrap gap-2">
-                {category.items.map((item, idx) => (
-                  <span
-                    key={idx}
-                    className="px-3 py-1 bg-gray-100 text-gray-700 rounded-lg text-sm border border-gray-300"
-                  >
-                    {item}
-                  </span>
-                ))}
+                <div className="flex flex-wrap gap-2">
+                  {category.items.map((item, idx) => (
+                    <span
+                      key={idx}
+                      className="skill-badge"
+                      style={{ animationDelay: `${idx * 50}ms` }}
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
           );
         })}
       </div>
